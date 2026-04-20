@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>결제하기 - 3Stripe Venture Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <script src="https://js.tosspayments.com/v2/standard"></script>
+  <style>
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); font-weight: 600; }
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); font-weight: 800; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Paperlogy', -apple-system, sans-serif; background: #F9FAFB; color: #111827; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+    .logo-text { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; font-style: italic; color: #0069FF; }
+    .checkout-container { max-width: 540px; width: 100%; }
+    .order-info { background: white; border-radius: 16px; padding: 28px; margin-bottom: 20px; border: 1px solid #E5E7EB; }
+    .order-info h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+    .order-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 15px; border-bottom: 1px solid #F3F4F6; }
+    .order-row:last-child { border-bottom: none; }
+    .order-row .label { color: #6B7280; }
+    .order-row .value { font-weight: 600; }
+    .order-total { display: flex; justify-content: space-between; padding: 16px 0 0; font-size: 18px; font-weight: 800; color: #0069FF; border-top: 2px solid #E5E7EB; margin-top: 8px; }
+    #payment-method { margin-bottom: 16px; }
+    #agreement { margin-bottom: 16px; }
+    .pay-btn { width: 100%; padding: 16px; background: #0069FF; color: white; border: none; border-radius: 12px; font-size: 17px; font-weight: 700; cursor: pointer; font-family: 'Paperlogy', sans-serif; transition: background 0.2s; }
+    .pay-btn:hover { background: #0055DD; }
+    .pay-btn:disabled { background: #9CA3AF; cursor: not-allowed; }
+    .error-msg { color: #EF4444; font-size: 14px; text-align: center; margin-top: 12px; display: none; }
+    .loading { text-align: center; padding: 40px; color: #6B7280; }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-container">
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 28px;">
+      <span class="logo-text">3Stripe Event</span>
+      <p style="font-size: 14px; color: #6B7280; margin-top: 8px;">안전한 결제를 위해 토스페이먼츠를 사용합니다</p>
+    </div>
+
+    <!-- Order Info -->
+    <div class="order-info" id="orderInfo">
+      <h2>주문 정보</h2>
+      <div class="order-row">
+        <span class="label">서비스</span>
+        <span class="value" id="dispOrderName">-</span>
+      </div>
+      <div class="order-row">
+        <span class="label">예약번호</span>
+        <span class="value" id="dispOrderId">-</span>
+      </div>
+      <div class="order-row">
+        <span class="label">고객명</span>
+        <span class="value" id="dispCustomerName">-</span>
+      </div>
+      <div class="order-total">
+        <span>결제 금액</span>
+        <span id="dispAmount">-</span>
+      </div>
+    </div>
+
+    <!-- Payment Method Widget -->
+    <div id="payment-method"></div>
+
+    <!-- Agreement Widget -->
+    <div id="agreement"></div>
+
+    <!-- Pay Button -->
+    <button class="pay-btn" id="payment-button" disabled>결제하기</button>
+    <p class="error-msg" id="errorMsg"></p>
+
+    <!-- No params message -->
+    <div class="loading" id="noParams" style="display:none;">
+      <p style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">결제 정보가 없습니다</p>
+      <p style="font-size: 14px;">올바른 결제 링크를 통해 접속해주세요.</p>
+    </div>
+  </div>
+
+<script>
+  main();
+
+  async function main() {
+    // URL 파라미터에서 결제 정보 가져오기
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get('orderId');
+    const orderName = params.get('orderName');
+    const amount = parseInt(params.get('amount'));
+    const customerName = params.get('customerName') || '';
+    const customerEmail = params.get('customerEmail') || '';
+    const customerPhone = params.get('customerPhone') || '';
+
+    // 파라미터 검증
+    if (!orderId || !orderName || !amount) {
+      document.getElementById('orderInfo').style.display = 'none';
+      document.getElementById('payment-method').style.display = 'none';
+      document.getElementById('agreement').style.display = 'none';
+      document.querySelector('.pay-btn').style.display = 'none';
+      document.getElementById('noParams').style.display = 'block';
+      return;
+    }
+
+    // 주문 정보 표시
+    document.getElementById('dispOrderName').textContent = decodeURIComponent(orderName);
+    document.getElementById('dispOrderId').textContent = orderId;
+    document.getElementById('dispCustomerName').textContent = customerName || '-';
+    document.getElementById('dispAmount').textContent = amount.toLocaleString() + '원';
+
+    const button = document.getElementById('payment-button');
+
+    // -------  결제위젯 초기화 -------
+    const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    const tossPayments = TossPayments(clientKey);
+
+    // 회원 결제 (customerKey 사용)
+    const customerKey = generateRandomString();
+    const widgets = tossPayments.widgets({ customerKey });
+
+    // -------  주문의 결제 금액 설정 -------
+    await widgets.setAmount({
+      currency: "KRW",
+      value: amount,
+    });
+
+    // -------  결제 UI 렌더링 -------
+    await widgets.renderPaymentMethods({
+      selector: "#payment-method",
+      variantKey: "DEFAULT",
+    });
+
+    // -------  이용약관 UI 렌더링 -------
+    await widgets.renderAgreement({
+      selector: "#agreement",
+      variantKey: "AGREEMENT",
+    });
+
+    // 버튼 활성화
+    button.disabled = false;
+
+    // -------  '결제하기' 버튼 누르면 결제창 띄우기 -------
+    button.addEventListener("click", async function () {
+      button.disabled = true;
+      button.textContent = '결제 처리 중...';
+
+      try {
+        await widgets.requestPayment({
+          orderId: orderId,
+          orderName: decodeURIComponent(orderName),
+          successUrl: window.location.origin + "/success.html",
+          failUrl: window.location.origin + "/fail.html",
+          customerEmail: customerEmail,
+          customerMobilePhone: customerPhone,
+          customerName: customerName,
+        });
+      } catch (error) {
+        button.disabled = false;
+        button.textContent = '결제하기';
+        if (error.code === 'USER_CANCEL') {
+          // 사용자가 취소한 경우
+        } else {
+          const errorMsg = document.getElementById('errorMsg');
+          errorMsg.textContent = error.message || '결제 중 오류가 발생했습니다.';
+          errorMsg.style.display = 'block';
+        }
+      }
+    });
+  }
+
+  function generateRandomString() {
+    return 'cust_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  }
+</script>
+
+</body>
+</html>

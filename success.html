@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>결제 완료 - 3Stripe Venture Studio</title>
+  <style>
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); font-weight: 600; }
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); font-weight: 800; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Paperlogy', -apple-system, sans-serif; background: #F9FAFB; color: #111827; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .container { max-width: 480px; width: 100%; text-align: center; }
+    .card { background: white; border-radius: 20px; padding: 40px; border: 1px solid #E5E7EB; }
+    .icon { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 36px; color: white; }
+    .icon-success { background: #10B981; }
+    .icon-loading { background: #F59E0B; }
+    .icon-fail { background: #EF4444; }
+    .info-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 14px; border-bottom: 1px solid #F3F4F6; }
+    .info-row .label { color: #6B7280; }
+    .info-row .value { font-weight: 600; font-size: 13px; word-break: break-all; max-width: 60%; text-align: right; }
+    .btn { display: inline-block; padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 600; text-decoration: none; cursor: pointer; font-family: 'Paperlogy', sans-serif; border: none; margin-top: 24px; }
+    .btn-primary { background: #0069FF; color: white; }
+    .btn-outline { background: white; color: #374151; border: 2px solid #E5E7EB; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <!-- Loading state -->
+      <div id="loadingState">
+        <div class="icon icon-loading">⏳</div>
+        <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">결제 확인 중...</h2>
+        <p style="color: #6B7280;">잠시만 기다려 주세요.</p>
+      </div>
+
+      <!-- Success state -->
+      <div id="successState" style="display: none;">
+        <div class="icon icon-success">✓</div>
+        <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">결제가 완료되었습니다</h2>
+        <p style="color: #6B7280; margin-bottom: 24px;">감사합니다. 담당자가 곧 연락드리겠습니다.</p>
+        <div style="text-align: left;">
+          <div class="info-row">
+            <span class="label">주문번호</span>
+            <span class="value" id="successOrderId">-</span>
+          </div>
+          <div class="info-row">
+            <span class="label">결제금액</span>
+            <span class="value" id="successAmount">-</span>
+          </div>
+          <div class="info-row">
+            <span class="label">결제수단</span>
+            <span class="value" id="successMethod">-</span>
+          </div>
+          <div class="info-row">
+            <span class="label">결제키</span>
+            <span class="value" id="successPaymentKey">-</span>
+          </div>
+        </div>
+        <a href="/" class="btn btn-primary">홈으로 돌아가기</a>
+      </div>
+
+      <!-- Fail state -->
+      <div id="failState" style="display: none;">
+        <div class="icon icon-fail">✕</div>
+        <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">결제 승인에 실패했습니다</h2>
+        <p style="color: #6B7280; margin-bottom: 16px;" id="failMessage">-</p>
+        <a href="/" class="btn btn-outline">홈으로 돌아가기</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+  main();
+
+  async function main() {
+    const params = new URLSearchParams(window.location.search);
+    const paymentKey = params.get("paymentKey");
+    const orderId = params.get("orderId");
+    const amount = params.get("amount");
+    const paymentType = params.get("paymentType");
+
+    if (!paymentKey || !orderId || !amount) {
+      showFail("결제 정보가 올바르지 않습니다.");
+      return;
+    }
+
+    try {
+      // 서버에 결제 승인 요청
+      const response = await fetch("/api/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentKey, orderId, amount: parseInt(amount) }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        showSuccess(orderId, amount, paymentType, paymentKey);
+      } else {
+        showFail(result.message || "결제 승인에 실패했습니다.");
+      }
+    } catch (error) {
+      showFail("결제 승인 중 오류가 발생했습니다: " + error.message);
+    }
+  }
+
+  function showSuccess(orderId, amount, paymentType, paymentKey) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('successState').style.display = 'block';
+    document.getElementById('successOrderId').textContent = orderId;
+    document.getElementById('successAmount').textContent = parseInt(amount).toLocaleString() + '원';
+    document.getElementById('successMethod').textContent = paymentType === 'NORMAL' ? '일반결제' : paymentType || '-';
+    document.getElementById('successPaymentKey').textContent = paymentKey;
+  }
+
+  function showFail(message) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('failState').style.display = 'block';
+    document.getElementById('failMessage').textContent = message;
+  }
+</script>
+
+</body>
+</html>

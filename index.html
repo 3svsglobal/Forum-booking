@@ -168,6 +168,10 @@
             <li>✓ 참가자 접수 · 안내</li>
             <li>✓ 현장 진행 · 운영 관리</li>
           </ul>
+          <div style="margin-top: 16px; padding: 12px; background: #F3F4F6; border-radius: 10px; font-size: 12px; color: #6B7280; line-height: 1.6;">
+            서비스 제공기간: 결제일로부터 최대 3개월<br>
+            계약금: 총 비용의 10% | <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color:var(--primary);text-decoration:underline;">환불정책 보기</a>
+          </div>
         </div>
         <!-- Level 2 -->
         <div class="card card-popular" style="transform: scale(1.03);">
@@ -185,7 +189,11 @@
             <li>✓ 영상 촬영 · 편집 · 납품</li>
             <li>✓ SNS 숏클립 · 강연자 브랜딩</li>
           </ul>
-          <a href="#booking-demo" class="btn-primary" style="display: block; text-align: center; margin-top: 20px;">이 서비스 예약하기</a>
+          <div style="margin-top: 16px; padding: 12px; background: #EEF2FF; border-radius: 10px; font-size: 12px; color: #4F46E5; line-height: 1.6;">
+            서비스 제공기간: 결제일로부터 최대 3개월<br>
+            계약금: 총 비용의 10% | <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color:#4F46E5;text-decoration:underline;">환불정책 보기</a>
+          </div>
+          <a href="#booking-demo" class="btn-primary" style="display: block; text-align: center; margin-top: 16px;">이 서비스 예약하기</a>
         </div>
         <!-- Level 3 -->
         <div class="card">
@@ -201,6 +209,10 @@
             <li>✓ 인사이트 리포트 제작</li>
             <li>✓ 미디어 기사화 · 배포</li>
           </ul>
+          <div style="margin-top: 16px; padding: 12px; background: #F3F4F6; border-radius: 10px; font-size: 12px; color: #6B7280; line-height: 1.6;">
+            서비스 제공기간: 결제일로부터 최대 3개월<br>
+            계약금: 총 비용의 10% | <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color:var(--primary);text-decoration:underline;">환불정책 보기</a>
+          </div>
         </div>
       </div>
     </div>
@@ -681,24 +693,40 @@
   <div id="refundModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center;">
     <div style="background: white; border-radius: 20px; padding: 36px; max-width: 640px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative;" class="fade-in">
       <button onclick="document.getElementById('refundModal').style.display='none'" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 20px; cursor: pointer; color: #9CA3AF;">✕</button>
-      <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 24px;">환불 및 취소 정책</h3>
+      <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 24px;">이용약관 및 환불·취소 정책</h3>
       <div style="font-size: 15px; line-height: 1.8; color: #374151;">
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">1. 계약금 안내</p>
-        <p style="margin-bottom: 16px;">예약 확정을 위해 총 서비스 비용의 <strong>10%</strong>를 계약금으로 납부해 주셔야 합니다. 계약금 납부가 완료된 시점에 예약이 확정됩니다.</p>
+        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">1. 서비스 안내</p>
+        <p style="margin-bottom: 8px;">본 서비스는 기업·단체 대상 이벤트 대행 서비스(세미나, 포럼, 컨퍼런스, 강연 등 기획·운영)를 제공합니다.</p>
+        <p style="margin-bottom: 16px;">서비스 최대 제공기간: 결제일로부터 <strong>최대 3개월</strong> 이내 이벤트 진행 완료</p>
 
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">2. 환불 규정</p>
+        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">2. 결제 및 계약금 안내</p>
+        <p style="margin-bottom: 8px;">예약 확정을 위해 총 서비스 비용의 <strong>10%</strong>를 계약금으로 납부해 주셔야 합니다.</p>
+        <p style="margin-bottom: 8px;">계약금 납부가 완료된 시점에 예약이 확정됩니다.</p>
+        <p style="margin-bottom: 16px;">잔금은 이벤트 진행 7일 전까지 납부해 주셔야 합니다.</p>
+
+        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">3. 환불 규정</p>
         <p style="margin-bottom: 8px;">가. <strong>이벤트 15일 전까지</strong> 취소 요청 시: 계약금 전액 환불</p>
         <p style="margin-bottom: 8px;">나. <strong>이벤트 14일 이내</strong> 취소 요청 시: 계약금 환불 불가</p>
-        <p style="margin-bottom: 16px;">다. 당사 사정으로 이벤트 진행이 불가한 경우: 계약금 전액 환불</p>
+        <p style="margin-bottom: 16px;">다. 당사(3Stripe Venture Studio) 사정으로 이벤트 진행이 불가한 경우: 계약금 전액 환불</p>
 
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">3. 취소 및 환불 절차</p>
-        <p style="margin-bottom: 16px;">취소 요청은 이메일(<strong>3stripe@3svs.com</strong>) 또는 전화(<strong>02-6925-2511</strong>)로 접수해 주시기 바랍니다. 환불은 접수일로부터 영업일 기준 5~7일 이내에 원결제 수단으로 처리됩니다.</p>
+        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">4. 환불 절차 및 처리 기간</p>
+        <p style="margin-bottom: 8px;">취소·환불 요청은 이메일(<strong>3stripe@3svs.com</strong>) 또는 전화(<strong>02-6925-2511</strong>)로 접수해 주시기 바랍니다.</p>
+        <p style="margin-bottom: 8px;">· 신용카드 결제: 취소 요청일로부터 영업일 기준 <strong>3~5일</strong> 이내 카드사 승인 취소</p>
+        <p style="margin-bottom: 8px;">· 계좌이체/가상계좌 결제: 취소 요청일로부터 영업일 기준 <strong>5~7일</strong> 이내 환불 계좌로 입금</p>
+        <p style="margin-bottom: 16px;">· 환불은 원결제 수단으로 처리되며, 부분 환불이 필요한 경우 별도 협의합니다.</p>
 
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">4. 일정 변경</p>
+        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">5. 일정 변경</p>
         <p style="margin-bottom: 16px;">이벤트 15일 전까지 1회에 한해 일정 변경이 가능합니다. 15일 이내의 일정 변경은 취소 후 재예약으로 처리되며, 위 환불 규정이 적용됩니다.</p>
 
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">5. 기타</p>
-        <p>본 환불 정책은 사전 고지 후 변경될 수 있으며, 변경된 정책은 변경 이후 신규 예약 건부터 적용됩니다.</p>
+        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">6. 판매자 정보</p>
+        <p style="margin-bottom: 8px;">상호명: 3Stripe Venture Studio | 대표: 배종원</p>
+        <p style="margin-bottom: 8px;">사업자등록번호: 703-87-03354</p>
+        <p style="margin-bottom: 8px;">주소: 서울시 영등포구 63로32(여의도동, 콤비빌딩) 813호</p>
+        <p style="margin-bottom: 16px;">전화: 02-6925-2511 | 이메일: 3stripe@3svs.com</p>
+
+        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">7. 기타</p>
+        <p style="margin-bottom: 8px;">본 이용약관 및 환불 정책은 사전 고지 후 변경될 수 있으며, 변경된 정책은 변경 이후 신규 예약 건부터 적용됩니다.</p>
+        <p>구매자는 결제 전 본 정책을 확인한 것으로 간주합니다.</p>
       </div>
       <div style="text-align: center; margin-top: 24px;">
         <button class="btn-outline" onclick="document.getElementById('refundModal').style.display='none'" style="padding: 12px 32px;">닫기</button>
@@ -724,7 +752,7 @@
         </div>
         <div style="text-align: right; font-size: 14px; color: #9CA3AF;">
           <p style="margin-bottom: 8px;">Knowledge Full-Service · Insight Marketing · Forum Full-Package</p>
-          <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color: #9CA3AF; text-decoration: underline; font-size: 13px;">환불 및 취소 정책</a>
+          <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color: #9CA3AF; text-decoration: underline; font-size: 13px;">이용약관 및 환불·취소 정책</a>
         </div>
       </div>
       <div style="border-top: 1px solid #374151; margin-top: 24px; padding-top: 16px; font-size: 12px; color: #6B7280; text-align: center;">
@@ -1095,7 +1123,8 @@
           <button style="background:#EF4444;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="updateStatus(${b.id},'cancelled')">✕ 취소</button>
         ` : ''}
         ${b.status === 'confirmed' && b.payment === 'unpaid' ? `
-          <button style="background:#10B981;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="updatePayment(${b.id})">💳 결제 완료 처리</button>
+          <button style="background:#0069FF;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="generatePaymentLink(${b.id})">💳 결제 링크 생성</button>
+          <button style="background:#10B981;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="updatePayment(${b.id})">✓ 수동 결제완료</button>
         ` : ''}
         <button style="background:#FF3B30;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="deleteBooking(${b.id})">🗑 삭제</button>
         <button class="btn-outline" style="padding:10px 20px;font-size:14px;" onclick="closeModal()">닫기</button>
@@ -1105,6 +1134,46 @@
 
     function closeModal() {
       document.getElementById('bookingModal').style.display = 'none';
+    }
+
+    function generatePaymentLink(id) {
+      const b = bookings.find(x => x.id === id);
+      if (!b) return;
+      const amount = prompt('결제 금액을 입력하세요 (숫자만):', '');
+      if (!amount || isNaN(amount) || parseInt(amount) <= 0) {
+        alert('올바른 금액을 입력해주세요.');
+        return;
+      }
+      const params = new URLSearchParams({
+        orderId: b.ref,
+        orderName: encodeURIComponent(b.event_type + ' - ' + b.level),
+        amount: parseInt(amount),
+        customerName: b.name,
+        customerEmail: b.email || '',
+        customerPhone: b.phone ? b.phone.replace(/-/g, '') : ''
+      });
+      const paymentUrl = window.location.origin + '/checkout.html?' + params.toString();
+
+      // 모달에 결제 링크 표시
+      document.getElementById('modalContent').innerHTML = `
+        <div style="background:#EEF2FF;border-radius:12px;padding:20px;margin-bottom:16px;">
+          <p style="font-weight:700;color:#4F46E5;margin-bottom:8px;">💳 결제 링크가 생성되었습니다</p>
+          <p style="font-size:13px;color:#6B7280;margin-bottom:12px;">아래 링크를 고객에게 전달하세요. 금액: <strong>${parseInt(amount).toLocaleString()}원</strong></p>
+          <input type="text" value="${paymentUrl}" id="paymentLinkInput" readonly style="width:100%;padding:10px;border:1px solid #D1D5DB;border-radius:8px;font-size:12px;background:white;margin-bottom:8px;">
+          <button onclick="copyPaymentLink()" style="background:#4F46E5;color:white;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:13px;font-family:'Paperlogy',sans-serif;width:100%;">링크 복사하기</button>
+        </div>
+        <p style="font-size:12px;color:#9CA3AF;">* 테스트 모드에서는 실제 결제가 이루어지지 않습니다.</p>
+      `;
+      document.getElementById('modalActions').innerHTML = `
+        <button class="btn-outline" style="padding:10px 20px;font-size:14px;" onclick="closeModal()">닫기</button>
+      `;
+    }
+
+    function copyPaymentLink() {
+      const input = document.getElementById('paymentLinkInput');
+      input.select();
+      document.execCommand('copy');
+      alert('결제 링크가 복사되었습니다!');
     }
 
     async function updateStatus(id, newStatus) {

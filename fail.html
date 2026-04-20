@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>결제 실패 - 3Stripe Venture Studio</title>
+  <style>
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); font-weight: 600; }
+    @font-face { font-family: 'Paperlogy'; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); font-weight: 800; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Paperlogy', -apple-system, sans-serif; background: #F9FAFB; color: #111827; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .container { max-width: 480px; width: 100%; text-align: center; }
+    .card { background: white; border-radius: 20px; padding: 40px; border: 1px solid #E5E7EB; }
+    .icon { width: 80px; height: 80px; background: #EF4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 36px; color: white; }
+    .info-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 14px; border-bottom: 1px solid #F3F4F6; text-align: left; }
+    .info-row .label { color: #6B7280; }
+    .info-row .value { font-weight: 600; font-size: 13px; max-width: 65%; text-align: right; word-break: break-all; }
+    .btn { display: inline-block; padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 600; text-decoration: none; cursor: pointer; font-family: 'Paperlogy', sans-serif; border: 2px solid #E5E7EB; background: white; color: #374151; margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <div class="icon">✕</div>
+      <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">결제를 실패했어요</h2>
+      <p style="color: #6B7280; margin-bottom: 24px;">아래 정보를 확인해 주세요.</p>
+      <div style="text-align: left;">
+        <div class="info-row">
+          <span class="label">에러코드</span>
+          <span class="value" id="code">-</span>
+        </div>
+        <div class="info-row">
+          <span class="label">실패 사유</span>
+          <span class="value" id="message">-</span>
+        </div>
+        <div class="info-row">
+          <span class="label">주문번호</span>
+          <span class="value" id="orderId">-</span>
+        </div>
+      </div>
+      <a href="/" class="btn">홈으로 돌아가기</a>
+    </div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById("code").textContent = params.get("code") || "-";
+  document.getElementById("message").textContent = params.get("message") || "-";
+  document.getElementById("orderId").textContent = params.get("orderId") || "-";
+</script>
+
+</body>
+</html>
