@@ -137,7 +137,7 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
 .hero-eyebrow{display:flex; align-items:center; gap:14px; margin-bottom:36px;}
 .hero-eyebrow::after{content:''; flex:1; height:1px; background:var(--border); max-width:160px;}
 .hero h1{font-size:clamp(38px,6vw,80px); font-weight:700; letter-spacing:-0.03em; line-height:1.08; margin-bottom:28px; max-width:980px;}
-.hero h1 .accent{color:var(--gold); font-style:italic; font-weight:600;}
+.hero h1 .accent{color:var(--gold); font-weight:600;}
 .hero-sub{font-size:clamp(15px,1.4vw,18px); color:var(--fg-dim); max-width:600px; margin-bottom:48px; line-height:1.7;}
 .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
 @media (max-width:640px){.hero-cta .btn{flex:1; justify-content:center;}}
@@ -169,15 +169,6 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
 .gallery-meta span{color:var(--gold);}
 
 @media (max-width:640px){.gallery-card{width:280px; height:380px;}}
-
-/* PARTNERS BAND */
-.partners-section{padding:60px 0; border-bottom:1px solid var(--border); background:var(--bg-soft);}
-.partners-head{text-align:center; margin-bottom:36px;}
-.partners-head p{font-size:12px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--fg-muted);}
-.partners-list{display:flex; flex-wrap:wrap; justify-content:center; gap:0; max-width:1100px; margin:0 auto; padding:0 24px;}
-.partner-name{padding:14px 28px; font-weight:600; font-size:15px; color:var(--fg-dim); letter-spacing:-0.01em; border-right:1px solid var(--border); white-space:nowrap;}
-.partner-name:last-child{border-right:none;}
-@media (max-width:768px){.partner-name{padding:10px 18px; font-size:13px; border-right:none; border-bottom:1px solid var(--border);}}
 
 /* SECTION HEAD */
 .sec-head{margin-bottom:64px; max-width:880px;}
@@ -311,7 +302,7 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
 /* CTA */
 .cta-block{padding:120px 0; text-align:center; border-bottom:1px solid var(--border);}
 .cta-block h2{font-size:clamp(32px,4.2vw,56px); font-weight:700; letter-spacing:-0.03em; line-height:1.1; margin-bottom:24px;}
-.cta-block h2 .accent{color:var(--gold); font-style:italic; font-weight:600;}
+.cta-block h2 .accent{color:var(--gold); font-weight:600;}
 .cta-block p{font-size:clamp(15px,1.4vw,18px); color:var(--fg-dim); margin-bottom:40px; max-width:560px; margin-left:auto; margin-right:auto;}
 
 /* FOOTER */
@@ -326,6 +317,23 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
 .footer-meta a{color:var(--fg-dim); transition:color .15s;}
 .footer-meta a:hover{color:var(--gold);}
 
+/* REEL (YouTube highlights) */
+.reel-section{padding:120px 0; border-bottom:1px solid var(--border);}
+@media (max-width:768px){.reel-section{padding:80px 0;}}
+.reel-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+@media (max-width:1024px){.reel-grid{grid-template-columns:1fr;}}
+.reel-card{display:flex; flex-direction:column; transition:transform .25s;}
+.reel-card:hover{transform:translateY(-3px);}
+.reel-frame{position:relative; padding-bottom:56.25%; height:0; overflow:hidden; background:var(--bg-card); border:1px solid var(--border);}
+.reel-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+.reel-placeholder .reel-frame{display:flex; align-items:center; justify-content:center; padding-bottom:0; height:auto; aspect-ratio:16/9;}
+.reel-play{width:60px; height:60px; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:16px; transition:all .2s; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+.reel-placeholder:hover .reel-play{background:var(--gold); color:var(--bg);}
+.reel-empty-label{position:absolute; bottom:22px; left:0; right:0; text-align:center; font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-muted);}
+.reel-meta{padding-top:18px;}
+.reel-meta h4{font-size:16px; font-weight:600; letter-spacing:-0.015em; margin-bottom:4px;}
+.reel-meta p{font-size:13px; color:var(--fg-dim);}
+
 /* Modals */
 .modal{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:200; align-items:center; justify-content:center; padding:24px;}
 .modal.open{display:flex;}
@@ -334,7 +342,7 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
 .modal-close{position:absolute; top:24px; right:24px; width:32px; height:32px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; transition:all .15s;}
 .modal-close:hover{border-color:var(--gold); color:var(--gold);}
 .modal h3{font-size:28px; font-weight:700; letter-spacing:-0.025em; margin-bottom:18px; line-height:1.2;}
-.modal h3 .accent{color:var(--gold); font-style:italic;}
+.modal h3 .accent{color:var(--gold);}
 .modal-section{margin-bottom:22px;}
 .modal-section h4{font-size:11px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); margin-bottom:8px;}
 .modal-section p{font-size:14px; color:var(--fg-dim); line-height:1.8; margin-bottom:6px;}
@@ -385,12 +393,13 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
       <span class="eyebrow">전문가 이벤트 풀서비스 · Seoul</span>
     </div>
     <h1>
-      전문가의 무대,<br>
+      이민·비자 설명회, 전문가 강연,<br>
+      네트워킹 이벤트까지<br>
       <span class="accent">처음부터 끝까지</span> 함께합니다.
     </h1>
     <p class="hero-sub">
-      세미나·포럼·강연·IR 피칭. 기획·운영·콘텐츠·홍보를 한 팀이 책임집니다.<br>
-      변호사·교수·전문 강사·연구기관·정부·스타트업 — 전문성을 무대로 옮기는 일.
+      학술 포럼, IR 피칭, 정책 발표회, 컨퍼런스 — 무엇이든 가능합니다.<br>
+      기획부터 운영, 영상 제작, 홍보까지 하나의 팀이 책임지고 진행합니다.
     </p>
     <div class="hero-cta">
       <a href="#book" class="btn btn-gold btn-lg">이벤트 예약하기</a>
@@ -578,21 +587,17 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
   </div>
 </section>
 
-<!-- PARTNERS BAND -->
-<section class="partners-section">
-  <div class="partners-head">
-    <p>Trusted by</p>
-  </div>
-  <div class="partners-list">
-    <span class="partner-name">Plug and Play Japan</span>
-    <span class="partner-name">KOSA</span>
-    <span class="partner-name">서울대 창업지원단</span>
-    <span class="partner-name">창업진흥원</span>
-    <span class="partner-name">중소벤처기업부</span>
-    <span class="partner-name">단국대</span>
-    <span class="partner-name">한양대</span>
-    <span class="partner-name">JBCCEI</span>
-    <span class="partner-name">IMDA</span>
+
+
+<!-- REEL / HIGHLIGHTS -->
+<section class="reel-section" id="reels">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Highlights</span>
+      <h2>현장 영상.</h2>
+      <p>실제 진행한 이벤트의 편집 영상입니다. 추가 작업물이 궁금하시면 <a href="javascript:void(0)" onclick="openConsultModal()" style="color:var(--gold); text-decoration:underline; text-underline-offset:3px;">무료 상담</a>으로 요청해 주세요.</p>
+    </div>
+    <div class="reel-grid" id="reelGrid"></div>
   </div>
 </section>
 
@@ -610,7 +615,7 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
         <div class="service-num">01 · Basic</div>
         <h3 class="service-title">기본 운영 패키지</h3>
         <div class="service-en">Basic Operation</div>
-        <div class="service-price">협의<small>· 건별</small></div>
+        <div class="service-price">150만원~<small>· 기본 운영</small></div>
         <div class="service-divider"></div>
         <ul class="service-list">
           <li>대관 섭외 및 계약</li>
@@ -625,7 +630,7 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
         <div class="service-num">02 · Full-Service</div>
         <h3 class="service-title">지식 풀서비스</h3>
         <div class="service-en">Knowledge Full-Service</div>
-        <div class="service-price">150만원~<small>· 20명 기준</small></div>
+        <div class="service-price">맞춤 견적<small>· 협의</small></div>
         <div class="service-divider"></div>
         <ul class="service-list">
           <li>기본 패키지 전체 포함</li>
@@ -796,6 +801,7 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
               <button class="pill" onclick="selectTime(this,'오전')">오전 (09–12시)</button>
               <button class="pill" onclick="selectTime(this,'오후')">오후 (13–17시)</button>
               <button class="pill" onclick="selectTime(this,'저녁')">저녁 (18–21시)</button>
+              <button class="pill" onclick="selectTime(this,'종일 (Full day)')">종일 (Full day · 09–18시)</button>
             </div>
             <label class="eyebrow" style="display:block; margin-bottom:14px; color:var(--fg-dim);">예상 참가 인원</label>
             <div class="option-grid">
@@ -829,7 +835,7 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
                 <div class="option-label">Level 01 · 기본 운영</div>
                 <div class="option-desc">대관·현장 세팅·진행·운영</div>
               </div>
-              <div style="font-weight:700; font-size:15px; white-space:nowrap;">협의</div>
+              <div style="font-weight:700; font-size:15px; white-space:nowrap;">150만원~</div>
             </div>
           </button>
           <button class="option" onclick="selectLevel(this,'Level 2')">
@@ -838,7 +844,7 @@ h1,h2,h3,h4{font-weight:700; letter-spacing:-0.022em; line-height:1.2;}
                 <div class="option-label">Level 02 · 지식 풀서비스</div>
                 <div class="option-desc">기획·홍보·운영·콘텐츠 제작</div>
               </div>
-              <div style="font-weight:700; font-size:15px; white-space:nowrap;">150만원~</div>
+              <div style="font-weight:700; font-size:15px; white-space:nowrap;">맞춤 견적</div>
             </div>
           </button>
           <button class="option" onclick="selectLevel(this,'Level 3')">
@@ -1236,6 +1242,44 @@ if (location.search.includes('admin') || location.hash === '#admin'){
 }
 
 renderCalendar();
+
+// === REEL (YouTube highlights) ===
+// Replace these with real YouTube video IDs. Each entry: { id, title, meta }
+window.REELS = [
+  // { id: 'YOUTUBE_VIDEO_ID', title: '이벤트 이름', meta: '클라이언트 · 2025.10' },
+];
+
+function renderReels(){
+  const grid = document.getElementById('reelGrid');
+  if (!grid) return;
+  if (!window.REELS || window.REELS.length === 0){
+    grid.innerHTML = Array(3).fill(0).map((_,i) => 
+      '<div class="reel-card reel-placeholder">'+
+        '<div class="reel-frame">'+
+          '<div class="reel-play">▶</div>'+
+          '<div class="reel-empty-label">동영상 추가 예정</div>'+
+        '</div>'+
+        '<div class="reel-meta">'+
+          '<h4>현장 영상 ' + String(i+1).padStart(2,'0') + '</h4>'+
+          '<p>업로드 예정</p>'+
+        '</div>'+
+      '</div>'
+    ).join('');
+  } else {
+    grid.innerHTML = window.REELS.map(v => 
+      '<div class="reel-card">'+
+        '<div class="reel-frame">'+
+          '<iframe src="https://www.youtube-nocookie.com/embed/'+v.id+'?autoplay=1&mute=1&loop=1&playlist='+v.id+'&controls=0&modestbranding=1&rel=0&playsinline=1" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen></iframe>'+
+        '</div>'+
+        '<div class="reel-meta">'+
+          '<h4>'+v.title+'</h4>'+
+          '<p>'+v.meta+'</p>'+
+        '</div>'+
+      '</div>'
+    ).join('');
+  }
+}
+renderReels();
 </script>
 
 </body>
