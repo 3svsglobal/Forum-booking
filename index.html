@@ -1,675 +1,894 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3Stripe Venture Studio - 전문가 이벤트 대행 서비스</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2" as="font" type="font/woff2" crossorigin rel="preload">
-  <style>
-    @font-face { font-family: 'Paperlogy'; font-weight: 100; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2') format('woff2'); }
-    @font-face { font-family: 'Paperlogy'; font-weight: 200; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-2ExtraLight.woff2') format('woff2'); }
-    @font-face { font-family: 'Paperlogy'; font-weight: 300; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2') format('woff2'); }
-    @font-face { font-family: 'Paperlogy'; font-weight: 400; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); }
-    @font-face { font-family: 'Paperlogy'; font-weight: 500; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2'); }
-    @font-face { font-family: 'Paperlogy'; font-weight: 600; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); }
-    @font-face { font-family: 'Paperlogy'; font-weight: 700; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2'); }
-    @font-face { font-family: 'Paperlogy'; font-weight: 800; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); }
-    @font-face { font-family: 'Paperlogy'; font-weight: 900; src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2'); }
-    * { font-family: 'Paperlogy', -apple-system, BlinkMacSystemFont, sans-serif; }
-    h1, h2, h3, h4 { letter-spacing: -0.02em; }
-    h1 { font-weight: 800; }
-    h2 { font-weight: 800; }
-    h3 { font-weight: 700; }
-    h4 { font-weight: 600; }
-    :root { --primary: #0069FF; --primary-hover: #0052CC; --primary-light: #E6F0FF; --dark: #1A1A2E; }
-    .btn-primary { background: var(--primary); color: white; padding: 14px 32px; border-radius: 12px; font-weight: 600; font-size: 16px; border: none; cursor: pointer; transition: all 0.2s; display: inline-block; text-decoration: none; }
-    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,105,255,0.3); }
-    .btn-outline { border: 2px solid var(--primary); color: var(--primary); padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 16px; background: white; cursor: pointer; transition: all 0.2s; display: inline-block; text-decoration: none; }
-    .btn-outline:hover { background: var(--primary-light); }
-    .card { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #f0f0f0; transition: all 0.3s; }
-    .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
-    .card-popular { border: 2px solid var(--primary); position: relative; }
-    .badge { background: var(--primary); color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
-    .section { padding: 80px 0; }
-    .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f0f0f0; }
-    .calendar-mock { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 20px 60px rgba(0,105,255,0.15); border: 1px solid #e8e8e8; }
-    .step-card { background: white; border: 2px solid #f0f0f0; border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.2s; }
-    .step-card:hover, .step-card.selected { border-color: var(--primary); background: var(--primary-light); }
-    .step-indicator { display: flex; gap: 8px; align-items: center; }
-    .step-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; }
-    .step-dot.active { background: var(--primary); color: white; }
-    .step-dot.done { background: #10B981; color: white; }
-    .step-dot.pending { background: #E5E7EB; color: #9CA3AF; }
-    .step-line { height: 2px; width: 40px; background: #E5E7EB; }
-    .step-line.done { background: #10B981; }
-    .time-pill { padding: 10px 20px; border: 2px solid #E5E7EB; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-weight: 500; }
-    .time-pill:hover, .time-pill.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
-    .region-card { background: white; border: 2px solid #f0f0f0; border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.2s; text-align: center; }
-    .region-card:hover, .region-card.selected { border-color: var(--primary); background: var(--primary-light); }
-    .fade-in { animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .gradient-bg { background: linear-gradient(135deg, #0069FF 0%, #0052CC 50%, #003D99 100%); }
-    .customer-card { text-align: center; padding: 24px 16px; }
-    .customer-icon { width: 56px; height: 56px; border-radius: 14px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 24px; }
-    input, textarea, select { width: 100%; padding: 12px 16px; border: 2px solid #E5E7EB; border-radius: 10px; font-size: 15px; transition: border-color 0.2s; outline: none; font-family: 'Paperlogy', -apple-system, sans-serif; }
-    input:focus, textarea:focus, select:focus { border-color: var(--primary); }
-    .tab { padding: 12px 24px; cursor: pointer; font-weight: 600; color: #6B7280; border-bottom: 3px solid transparent; transition: all 0.2s; }
-    .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-    .logo-text { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; font-style: italic; letter-spacing: -0.01em; color: var(--primary); }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0B">
+<meta name="format-detection" content="telephone=yes">
+
+<title>3STRIPE EVENT — 전문가 이벤트, 결과로 증명합니다 | 세미나·포럼·강연·IR 대행</title>
+<meta name="description" content="세미나·포럼·강연·IR 피칭·설명회 전 주기를 기획부터 운영·콘텐츠까지 한 번에. 3Stripe Venture Studio가 만드는 전문가 이벤트 풀서비스. 150+ 성공 이벤트, 98% 만족도.">
+<meta name="keywords" content="이벤트 대행, 세미나 기획, 포럼 운영, 컨퍼런스 대행, IR 피칭, 강연 기획, 행사 대행, 세미나 대관, 3Stripe, 3svs">
+<meta name="author" content="3Stripe Venture Studio">
+<link rel="canonical" href="https://project-k90w7.vercel.app/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="3STRIPE EVENT">
+<meta property="og:title" content="3STRIPE EVENT — 전문가 이벤트, 결과로 증명합니다">
+<meta property="og:description" content="세미나·포럼·강연·IR 피칭 전 주기 이벤트 대행 풀서비스. 기획부터 콘텐츠·운영까지.">
+<meta property="og:url" content="https://project-k90w7.vercel.app/">
+<meta property="og:image" content="https://project-k90w7.vercel.app/og-image.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="3STRIPE EVENT — 전문가 이벤트, 결과로 증명합니다">
+<meta name="twitter:description" content="세미나·포럼·강연·IR 피칭 전 주기 이벤트 대행.">
+
+<!-- Structured Data: Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "3Stripe Venture Studio",
+  "alternateName": "3STRIPE EVENT",
+  "url": "https://project-k90w7.vercel.app/",
+  "telephone": "+82-2-6925-2511",
+  "email": "3stripe@3svs.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "63로 32, 813호 (여의도동, 콤비빌딩)",
+    "addressLocality": "영등포구",
+    "addressRegion": "서울특별시",
+    "addressCountry": "KR"
+  },
+  "priceRange": "₩₩",
+  "description": "전문가 이벤트 대행 풀서비스 — 세미나, 포럼, 강연, IR 피칭 기획·운영",
+  "areaServed": "KR"
+}
+</script>
+
+<!-- Preconnects -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Fonts: Pretendard for Korean, Space Grotesk + Manrope for English -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@800;900&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0A0A0B; --bg-soft:#131316; --bg-elev:#1A1A1F;
+  --fg:#FFFFFF; --fg-dim:rgba(255,255,255,0.65); --fg-muted:rgba(255,255,255,0.42);
+  --accent:#FF1654; --accent-hover:#FF3366; --yellow:#F5FF3D; --gold:#9C7B30;
+  --border:rgba(255,255,255,0.12); --border-strong:rgba(255,255,255,0.24);
+  --success:#22DD88; --danger:#FF3838; --warn:#FFB020;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  font-family:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg); color:var(--fg);
+  line-height:1.55; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  font-feature-settings:"ss01","ss02";
+  overflow-x:hidden;
+}
+img{max-width:100%; display:block;}
+button{font-family:inherit; cursor:pointer; background:none; border:none; color:inherit;}
+input,textarea,select{font-family:inherit; font-size:inherit; color:inherit;}
+a{color:inherit; text-decoration:none;}
+
+/* Typography */
+.display{font-family:'Manrope','Pretendard',sans-serif; font-weight:900; letter-spacing:-0.04em; line-height:0.92;}
+.display-ko{font-family:'Pretendard Variable','Pretendard',sans-serif; font-weight:900; letter-spacing:-0.045em; line-height:1.0;}
+.mono{font-family:'Space Grotesk','SF Mono',monospace;}
+.eyebrow{font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; letter-spacing:0.24em; text-transform:uppercase; color:var(--fg-dim);}
+
+h1,h2,h3,h4{font-weight:800; letter-spacing:-0.02em; line-height:1.1;}
+
+/* Containers */
+.container{max-width:1440px; margin:0 auto; padding:0 32px;}
+.container-narrow{max-width:1120px; margin:0 auto; padding:0 32px;}
+@media (max-width:768px){.container,.container-narrow{padding:0 20px;}}
+
+/* Section */
+.section{padding:120px 0; border-bottom:1px solid var(--border);}
+.section-tight{padding:80px 0;}
+@media (max-width:768px){.section{padding:72px 0;} .section-tight{padding:56px 0;}}
+
+/* Buttons (sharp, no border-radius) */
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:18px 32px; font-weight:700; font-size:15px;
+  border:1.5px solid var(--fg); background:var(--fg); color:var(--bg);
+  text-transform:uppercase; letter-spacing:0.06em;
+  transition:all .18s ease; cursor:pointer; text-decoration:none;
+  white-space:nowrap;
+}
+.btn:hover{background:var(--accent); border-color:var(--accent); color:var(--fg); transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--fg);}
+.btn-outline{background:transparent; color:var(--fg);}
+.btn-outline:hover{background:var(--fg); color:var(--bg); border-color:var(--fg);}
+.btn-accent{background:var(--accent); border-color:var(--accent); color:var(--fg);}
+.btn-accent:hover{background:var(--yellow); border-color:var(--yellow); color:var(--bg);}
+.btn-sm{padding:12px 22px; font-size:13px;}
+.btn-lg{padding:22px 40px; font-size:17px;}
+
+/* Cards */
+.card-flat{border:1px solid var(--border); padding:36px 28px; background:transparent; transition:all .25s ease; display:flex; flex-direction:column;}
+.card-flat:hover{background:var(--fg); color:var(--bg); border-color:var(--fg); transform:translate(-3px,-3px); box-shadow:6px 6px 0 var(--accent);}
+.card-flat:hover .dim{color:var(--bg); opacity:0.6;}
+.card-flat:hover .accent-text{color:var(--accent);}
+
+/* Helpers */
+.dim{color:var(--fg-dim);}
+.muted{color:var(--fg-muted);}
+.accent-text{color:var(--accent);}
+.yellow-text{color:var(--yellow);}
+.gold-text{color:var(--gold);}
+.bg-soft{background:var(--bg-soft);}
+.bg-accent{background:var(--accent);}
+.bg-yellow{background:var(--yellow); color:var(--bg);}
+.bg-fg{background:var(--fg); color:var(--bg);}
+
+/* NAV */
+.nav{position:sticky; top:0; z-index:60; background:rgba(10,10,11,0.85); backdrop-filter:saturate(180%) blur(16px); -webkit-backdrop-filter:saturate(180%) blur(16px); border-bottom:1px solid var(--border);}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 32px; max-width:1440px; margin:0 auto;}
+.nav-logo{font-family:'Manrope',sans-serif; font-weight:900; font-size:18px; letter-spacing:-0.02em;}
+.nav-logo .dot{color:var(--accent);}
+.nav-menu{display:flex; gap:36px; align-items:center;}
+.nav-link{font-family:'Space Grotesk',monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-dim); transition:color .15s;}
+.nav-link:hover{color:var(--fg);}
+@media (max-width:768px){
+  .nav-inner{padding:14px 20px;}
+  .nav-menu{display:none;}
+  .nav-menu-mobile{display:flex; gap:18px;}
+}
+
+/* HERO */
+.hero{padding:100px 0 80px; position:relative; overflow:hidden;}
+.hero-eyebrow{display:flex; align-items:center; gap:12px; margin-bottom:32px;}
+.hero-eyebrow::after{content:''; flex:1; height:1px; background:var(--border); max-width:200px;}
+.hero-headline{font-size:clamp(56px,11vw,180px); font-weight:900; line-height:0.88; letter-spacing:-0.045em; margin-bottom:32px;}
+.hero-headline .stroke{color:transparent; -webkit-text-stroke:1.5px var(--fg);}
+.hero-headline .pink{color:var(--accent);}
+.hero-sub{font-size:clamp(16px,1.6vw,20px); color:var(--fg-dim); max-width:640px; margin-bottom:48px; line-height:1.55;}
+.hero-cta{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:80px;}
+.hero-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; padding-top:48px; border-top:1px solid var(--border);}
+.hero-stat-num{font-family:'Manrope',sans-serif; font-size:clamp(36px,5vw,56px); font-weight:900; line-height:1; letter-spacing:-0.04em; margin-bottom:8px;}
+.hero-stat-label{font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-dim);}
+@media (max-width:640px){.hero-stats{grid-template-columns:1fr 1fr; gap:24px 16px;}}
+
+/* MARQUEE */
+.marquee-wrap{border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; padding:28px 0; background:var(--bg);}
+.marquee-track{display:flex; gap:64px; animation:marquee 35s linear infinite; white-space:nowrap; will-change:transform;}
+.marquee-track span{font-family:'Manrope',sans-serif; font-size:clamp(36px,5vw,64px); font-weight:900; letter-spacing:-0.03em; color:var(--fg); display:inline-flex; align-items:center; gap:64px;}
+.marquee-track span::after{content:'●'; color:var(--accent); font-size:24px;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* MANIFESTO */
+.manifesto{padding:140px 0; background:var(--bg); text-align:left;}
+.manifesto-text{font-family:'Pretendard Variable','Pretendard',sans-serif; font-size:clamp(36px,6vw,88px); font-weight:900; line-height:1.15; letter-spacing:-0.04em;}
+.manifesto-text .accent{color:var(--accent);}
+.manifesto-text .yellow{color:var(--yellow);}
+.manifesto-text .strike{text-decoration:line-through; color:var(--fg-muted);}
+
+/* SECTION HEAD */
+.sec-head{display:flex; justify-content:space-between; align-items:flex-end; gap:32px; margin-bottom:64px; flex-wrap:wrap;}
+.sec-head h2{font-family:'Manrope',sans-serif; font-size:clamp(40px,6vw,80px); font-weight:900; letter-spacing:-0.04em; line-height:0.95;}
+.sec-head h2 .ko{display:block; font-family:'Pretendard Variable',sans-serif; font-size:0.62em; margin-top:12px; color:var(--fg-dim); font-weight:800;}
+.sec-head-right{max-width:380px; color:var(--fg-dim); font-size:16px; line-height:1.6;}
+
+/* SERVICES */
+.services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--border); border-left:1px solid var(--border);}
+.service{padding:48px 36px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); transition:all .25s; display:flex; flex-direction:column; min-height:560px; position:relative;}
+.service:hover{background:var(--fg); color:var(--bg);}
+.service:hover .service-num, .service:hover .service-price{color:var(--accent);}
+.service:hover .service-list li{color:var(--bg); opacity:0.85;}
+.service:hover .service-note{background:rgba(0,0,0,0.08); color:var(--bg);}
+.service-popular{background:var(--accent); color:var(--fg);}
+.service-popular .service-num, .service-popular .service-price{color:var(--yellow);}
+.service-popular:hover{background:var(--yellow); color:var(--bg);}
+.service-popular:hover .service-num, .service-popular:hover .service-price{color:var(--accent);}
+.service-num{font-family:'Manrope',sans-serif; font-size:88px; font-weight:900; line-height:0.9; letter-spacing:-0.05em; color:var(--accent); margin-bottom:24px;}
+.service-tag{font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.6; margin-bottom:8px;}
+.service-title{font-size:28px; font-weight:900; letter-spacing:-0.02em; margin-bottom:8px;}
+.service-en{font-family:'Space Grotesk',monospace; font-size:13px; color:var(--fg-dim); margin-bottom:24px;}
+.service-popular .service-en{color:rgba(255,255,255,0.7);}
+.service-price{font-family:'Manrope',sans-serif; font-size:32px; font-weight:900; letter-spacing:-0.02em; line-height:1; margin-bottom:32px;}
+.service-price small{font-family:'Pretendard',sans-serif; font-size:13px; font-weight:500; opacity:0.5; margin-left:6px;}
+.service-divider{height:1px; background:var(--border); margin-bottom:24px;}
+.service:hover .service-divider, .service-popular .service-divider{background:rgba(255,255,255,0.2);}
+.service-popular:hover .service-divider{background:rgba(0,0,0,0.15);}
+.service-list{list-style:none; margin-bottom:auto;}
+.service-list li{padding:10px 0; font-size:15px; border-top:1px dotted var(--border); display:flex; align-items:flex-start; gap:12px;}
+.service-list li:first-child{border-top:none;}
+.service-list li::before{content:'→'; color:var(--accent); font-weight:700;}
+.service-popular .service-list li::before{color:var(--yellow);}
+.service-note{margin-top:28px; padding:14px; background:var(--bg-elev); font-size:12px; color:var(--fg-dim); line-height:1.6; border-left:2px solid var(--accent);}
+.service-popular .service-note{background:rgba(0,0,0,0.18); color:rgba(255,255,255,0.9); border-left-color:var(--yellow);}
+.service-popular-tag{position:absolute; top:0; right:0; background:var(--yellow); color:var(--bg); padding:6px 14px; font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;}
+@media (max-width:1024px){.services-grid{grid-template-columns:1fr;} .service{min-height:auto;}}
+
+/* WHO LIST */
+.who-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--border); border-left:1px solid var(--border);}
+.who-item{padding:36px 28px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; align-items:flex-start; gap:20px; transition:all .25s;}
+.who-item:hover{background:var(--accent);}
+.who-item:hover .who-num{color:var(--yellow);}
+.who-num{font-family:'Manrope',sans-serif; font-size:24px; font-weight:900; color:var(--accent); min-width:48px; line-height:1;}
+.who-content h4{font-size:18px; font-weight:800; margin-bottom:6px; letter-spacing:-0.01em;}
+.who-content p{font-size:14px; color:var(--fg-dim); line-height:1.55;}
+.who-item:hover .who-content p{color:rgba(255,255,255,0.85);}
+@media (max-width:768px){.who-grid{grid-template-columns:1fr;}}
+
+/* VENUES */
+.venues-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+.venue{border:1px solid var(--border); padding:40px 32px; transition:all .25s; min-height:340px; display:flex; flex-direction:column;}
+.venue:hover{border-color:var(--fg); background:var(--fg); color:var(--bg);}
+.venue:hover .venue-tag{color:var(--accent);}
+.venue:hover p{color:var(--fg-muted); color:rgba(0,0,0,0.65);}
+.venue-tag{font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:24px;}
+.venue h3{font-size:32px; font-weight:900; letter-spacing:-0.02em; margin-bottom:14px; line-height:1.05;}
+.venue p{font-size:14px; color:var(--fg-dim); line-height:1.7; margin-bottom:auto;}
+.venue-list{margin-top:24px; padding-top:24px; border-top:1px solid var(--border); font-family:'Space Grotesk',monospace; font-size:12px; color:var(--fg-muted);}
+.venue:hover .venue-list{border-top-color:rgba(0,0,0,0.15); color:rgba(0,0,0,0.55);}
+@media (max-width:1024px){.venues-grid{grid-template-columns:1fr;}}
+
+/* STATS BAND */
+.stats-band{padding:140px 0; background:var(--bg);}
+.stats-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--border); border-left:1px solid var(--border);}
+.stat-cell{padding:64px 40px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); text-align:left;}
+.stat-num{font-family:'Manrope',sans-serif; font-size:clamp(72px,12vw,160px); font-weight:900; line-height:0.85; letter-spacing:-0.05em; margin-bottom:16px;}
+.stat-num:nth-child(1){color:var(--accent);}
+.stat-label{font-family:'Space Grotesk',monospace; font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-dim);}
+.stat-desc{font-size:14px; color:var(--fg-dim); margin-top:8px; line-height:1.55;}
+.stat-cell:nth-child(2) .stat-num{color:var(--yellow);}
+.stat-cell:nth-child(3) .stat-num{color:var(--fg);}
+@media (max-width:1024px){.stats-grid{grid-template-columns:1fr;} .stat-cell{padding:40px 28px;}}
+
+/* BOOKING FLOW */
+.booking-shell{background:var(--bg-soft); padding:80px 56px; border:1px solid var(--border);}
+.booking-progress{display:flex; align-items:center; gap:12px; margin-bottom:56px;}
+.progress-bar{flex:1; height:2px; background:var(--border); position:relative; overflow:hidden;}
+.progress-bar::after{content:''; position:absolute; left:0; top:0; height:100%; background:var(--accent); transition:width .35s ease;}
+.progress-bar[data-step="1"]::after{width:25%;}
+.progress-bar[data-step="2"]::after{width:50%;}
+.progress-bar[data-step="3"]::after{width:75%;}
+.progress-bar[data-step="4"]::after{width:100%;}
+.progress-label{font-family:'Space Grotesk',monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-dim); white-space:nowrap;}
+.progress-label .current{color:var(--accent);}
+
+.step-title{font-size:clamp(28px,3.5vw,44px); font-weight:900; letter-spacing:-0.03em; margin-bottom:36px; line-height:1.1;}
+.option-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+.option-grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+.option-grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+@media (max-width:768px){.option-grid,.option-grid-3,.option-grid-4{grid-template-columns:1fr 1fr;} .option-grid-4{grid-template-columns:1fr 1fr;}}
+@media (max-width:480px){.option-grid,.option-grid-3,.option-grid-4{grid-template-columns:1fr;}}
+
+.option{padding:22px 20px; border:1.5px solid var(--border); background:var(--bg); cursor:pointer; transition:all .15s; text-align:left;}
+.option:hover{border-color:var(--fg);}
+.option.selected{border-color:var(--accent); background:var(--accent); color:var(--fg);}
+.option-label{font-weight:700; font-size:15px; letter-spacing:-0.01em; margin-bottom:4px;}
+.option-desc{font-size:12px; color:var(--fg-dim);}
+.option.selected .option-desc{color:rgba(255,255,255,0.85);}
+
+.pill{padding:14px 18px; border:1.5px solid var(--border); background:var(--bg); text-align:center; cursor:pointer; font-weight:600; font-size:14px; transition:all .15s;}
+.pill:hover{border-color:var(--fg);}
+.pill.selected{border-color:var(--accent); background:var(--accent); color:var(--fg);}
+
+.calendar{border:1px solid var(--border); padding:24px; background:var(--bg);}
+.calendar-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+.calendar-head strong{font-family:'Manrope',sans-serif; font-size:18px; font-weight:800; letter-spacing:-0.02em;}
+.calendar-nav-btn{width:36px; height:36px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:all .15s;}
+.calendar-nav-btn:hover{background:var(--fg); color:var(--bg); border-color:var(--fg);}
+.calendar-weekdays{display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:6px;}
+.calendar-weekday{text-align:center; font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; color:var(--fg-muted); padding:8px 0; text-transform:uppercase;}
+.calendar-days{display:grid; grid-template-columns:repeat(7,1fr); gap:2px;}
+.calendar-day{aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; cursor:pointer; transition:all .12s;}
+.calendar-day:hover:not(.past){background:var(--bg-elev);}
+.calendar-day.past{color:var(--fg-muted); opacity:0.35; cursor:not-allowed;}
+.calendar-day.selected{background:var(--accent); color:var(--fg);}
+.calendar-day.today{outline:1px solid var(--fg-muted);}
+
+.form-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+@media (max-width:640px){.form-grid{grid-template-columns:1fr;}}
+.field label{display:block; font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-dim); margin-bottom:8px;}
+.field input, .field textarea, .field select{
+  width:100%; padding:14px 16px; background:var(--bg); border:1.5px solid var(--border); color:var(--fg);
+  font-size:15px; outline:none; transition:border-color .15s;
+}
+.field input:focus, .field textarea:focus, .field select:focus{border-color:var(--accent);}
+.field input::placeholder, .field textarea::placeholder{color:var(--fg-muted);}
+
+.summary{background:var(--bg); border:1px solid var(--accent); padding:24px; margin-bottom:24px;}
+.summary-head{font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:16px;}
+.summary-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px 24px; font-size:14px;}
+.summary-grid .k{color:var(--fg-muted); font-size:12px;}
+.summary-grid .v{font-weight:700; margin-top:2px;}
+
+.notice{background:rgba(245,255,61,0.08); border-left:2px solid var(--yellow); padding:14px 18px; font-size:13px; color:var(--fg-dim); margin-bottom:24px;}
+
+.flow-actions{display:flex; justify-content:space-between; margin-top:36px; gap:12px;}
+
+.complete-card{text-align:center; padding:60px 24px;}
+.complete-mark{width:80px; height:80px; background:var(--accent); display:inline-flex; align-items:center; justify-content:center; font-family:'Manrope',sans-serif; font-size:40px; font-weight:900; color:var(--fg); margin-bottom:32px;}
+.complete-ref{display:inline-block; font-family:'Space Grotesk',monospace; font-size:13px; font-weight:700; letter-spacing:0.14em; padding:10px 22px; border:1px solid var(--accent); color:var(--accent); margin:24px 0 40px;}
+
+@media (max-width:768px){
+  .booking-shell{padding:48px 24px;}
+}
+
+/* FAQ */
+.faq-list{border-top:1px solid var(--border);}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{display:flex; justify-content:space-between; align-items:flex-start; padding:28px 0; cursor:pointer; gap:24px; transition:color .15s;}
+.faq-q:hover{color:var(--accent);}
+.faq-q h4{font-size:clamp(18px,2vw,22px); font-weight:800; letter-spacing:-0.015em; flex:1;}
+.faq-toggle{font-family:'Manrope',sans-serif; font-size:24px; font-weight:900; line-height:1; min-width:32px; text-align:right; transition:transform .25s;}
+.faq-item.open .faq-toggle{transform:rotate(45deg);}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .35s ease; color:var(--fg-dim); line-height:1.75;}
+.faq-item.open .faq-a{max-height:600px;}
+.faq-a-inner{padding:0 0 32px 0; font-size:15px;}
+
+/* CTA */
+.cta-block{padding:140px 0; background:var(--accent); color:var(--fg); text-align:center; border-bottom:1px solid var(--border);}
+.cta-block h2{font-size:clamp(40px,8vw,120px); font-weight:900; letter-spacing:-0.05em; line-height:0.9; margin-bottom:32px;}
+.cta-block p{font-size:clamp(16px,1.8vw,22px); margin-bottom:48px; opacity:0.9;}
+.cta-block .btn{background:var(--fg); color:var(--bg); border-color:var(--fg);}
+.cta-block .btn:hover{background:var(--bg); color:var(--fg); border-color:var(--bg); box-shadow:6px 6px 0 var(--yellow);}
+
+/* FOOTER */
+.footer{background:var(--bg); color:var(--fg); padding:80px 0 32px; border-top:1px solid var(--border);}
+.footer-top{display:flex; justify-content:space-between; gap:48px; flex-wrap:wrap; margin-bottom:64px;}
+.footer-logo{font-family:'Manrope',sans-serif; font-weight:900; font-size:clamp(48px,7vw,96px); letter-spacing:-0.04em; line-height:0.9; cursor:default;}
+.footer-logo .dot{color:var(--accent);}
+.footer-info{font-size:13px; color:var(--fg-dim); line-height:1.85; max-width:380px;}
+.footer-info strong{color:var(--fg); font-weight:700;}
+.footer-meta{display:flex; justify-content:space-between; padding-top:32px; border-top:1px solid var(--border); flex-wrap:wrap; gap:16px; font-family:'Space Grotesk',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-muted);}
+.footer-meta a{color:var(--fg-dim); transition:color .15s;}
+.footer-meta a:hover{color:var(--accent);}
+
+/* Modals */
+.modal{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.78); z-index:200; align-items:center; justify-content:center; padding:24px;}
+.modal.open{display:flex;}
+.modal-inner{background:var(--bg); border:1px solid var(--border); max-width:560px; width:100%; max-height:88vh; overflow-y:auto; padding:40px;}
+.modal-large .modal-inner{max-width:720px;}
+.modal-close{position:absolute; top:24px; right:24px; width:36px; height:36px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:18px;}
+.modal-close:hover{background:var(--fg); color:var(--bg); border-color:var(--fg);}
+.modal h3{font-family:'Manrope',sans-serif; font-size:32px; font-weight:900; letter-spacing:-0.03em; margin-bottom:24px; line-height:1.05;}
+.modal-section{margin-bottom:20px;}
+.modal-section h4{font-family:'Space Grotesk',monospace; font-size:11px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:8px;}
+.modal-section p{font-size:14px; color:var(--fg-dim); line-height:1.75; margin-bottom:6px;}
+.modal-section strong{color:var(--fg);}
+
+/* Animations */
+.fade-in{animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(8px);}to{opacity:1; transform:translateY(0);}}
+
+/* Focus accessibility */
+:focus-visible{outline:2px solid var(--yellow); outline-offset:2px;}
+
+/* Selection */
+::selection{background:var(--accent); color:var(--fg);}
+
+/* Scrollbar dark */
+::-webkit-scrollbar{width:10px; height:10px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border-strong);}
+::-webkit-scrollbar-thumb:hover{background:var(--fg-dim);}
+
+/* Print */
+@media print{.nav,.cta-block,.footer,.modal{display:none;} body{background:#fff; color:#000;}}
+
+/* Skip link for a11y */
+.skip-link{position:absolute; top:-100px; left:0; background:var(--accent); color:var(--fg); padding:12px 20px; z-index:1000;}
+.skip-link:focus{top:0;}
+</style>
 </head>
-<body class="bg-white" style="color: var(--dark);">
+<body>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
+<a href="#main" class="skip-link">본문 바로가기</a>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">3STRIPE<span class="dot">.</span>EVENT</a>
+    <nav class="nav-menu" aria-label="Primary">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#venues" class="nav-link">Venues</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#book" class="btn btn-sm btn-accent">Book Now</a>
+    </nav>
+    <nav class="nav-menu-mobile" style="display:none;" aria-label="Mobile">
+      <a href="#book" class="btn btn-sm btn-accent">Book</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">
+      <span class="eyebrow">FORUM BOOKING / SEOUL · 2026</span>
+    </div>
+    <h1 class="hero-headline">
+      EVENTS,<br>
+      <span class="stroke">DONE</span> <span class="pink">RIGHT.</span>
+    </h1>
+    <p class="hero-sub">
+      세미나 · 포럼 · 강연 · IR 피칭 · 설명회.<br>
+      기획부터 운영, 콘텐츠, 마케팅까지 — 전문가 이벤트의 모든 것을 한 번에.
+    </p>
+    <div class="hero-cta">
+      <a href="#book" class="btn btn-accent btn-lg">이벤트 예약하기 →</a>
+      <a href="#services" class="btn btn-outline btn-lg">서비스 살펴보기</a>
+    </div>
+    <div class="hero-stats">
       <div>
-        <span class="logo-text">3Stripe Event</span>
+        <div class="hero-stat-num accent-text">150<span style="color:var(--fg-dim);font-size:0.5em;">+</span></div>
+        <div class="hero-stat-label">성공 이벤트</div>
       </div>
-      <div style="display: flex; align-items: center; gap: 32px;">
-        <a href="#services" style="text-decoration: none; color: #4B5563; font-weight: 500;">서비스 소개</a>
-        <a href="#booking-demo" style="text-decoration: none; color: #4B5563; font-weight: 500;">이벤트 예약</a>
-        <a href="#booking-demo" class="btn-primary" style="padding: 10px 24px; font-size: 14px;">예약하기</a>
+      <div>
+        <div class="hero-stat-num yellow-text">98<span style="color:var(--fg-dim);font-size:0.5em;">%</span></div>
+        <div class="hero-stat-label">고객 만족도</div>
       </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section style="max-width: 1200px; margin: 0 auto; padding: 80px 24px 60px; display: flex; align-items: center; gap: 60px;">
-    <div style="flex: 1;" class="fade-in">
-      <h1 style="font-size: 44px; font-weight: 800; line-height: 1.3; margin-bottom: 20px;">
-        전문가 이벤트,<br>기획부터 운영까지<br><span style="color: var(--primary);">한 번에</span>
-      </h1>
-      <p style="font-size: 18px; color: #6B7280; line-height: 1.7; margin-bottom: 32px;">
-        세미나 · 강연 · 포럼 · 설명회 — 대관, 홍보, 영상, 마케팅까지<br>
-        올인원 이벤트 대행 서비스
-      </p>
-      <div style="display: flex; gap: 16px;">
-        <a href="#booking-demo" class="btn-primary">이벤트 예약하기 →</a>
-        <a href="#services" class="btn-outline">서비스 알아보기</a>
-      </div>
-      <div style="margin-top: 32px; display: flex; gap: 40px;">
-        <div><span style="font-size: 28px; font-weight: 800; color: var(--primary);">150+</span><br><span style="font-size: 14px; color: #9CA3AF;">성공 이벤트</span></div>
-        <div><span style="font-size: 28px; font-weight: 800; color: var(--primary);">98%</span><br><span style="font-size: 14px; color: #9CA3AF;">고객 만족도</span></div>
-        <div><span style="font-size: 28px; font-weight: 800; color: var(--primary);">50+</span><br><span style="font-size: 14px; color: #9CA3AF;">전문 파트너</span></div>
+      <div>
+        <div class="hero-stat-num">50<span style="color:var(--fg-dim);font-size:0.5em;">+</span></div>
+        <div class="hero-stat-label">전문 파트너</div>
       </div>
     </div>
-    <div style="flex: 1;" class="fade-in">
-      <div class="calendar-mock">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-          <strong style="font-size: 16px;">이벤트 예약</strong>
-          <span class="badge">빠른 예약</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; margin-bottom: 16px;">
-          <span style="font-size: 12px; color: #9CA3AF; padding: 4px;">일</span>
-          <span style="font-size: 12px; color: #9CA3AF; padding: 4px;">월</span>
-          <span style="font-size: 12px; color: #9CA3AF; padding: 4px;">화</span>
-          <span style="font-size: 12px; color: #9CA3AF; padding: 4px;">수</span>
-          <span style="font-size: 12px; color: #9CA3AF; padding: 4px;">목</span>
-          <span style="font-size: 12px; color: #9CA3AF; padding: 4px;">금</span>
-          <span style="font-size: 12px; color: #9CA3AF; padding: 4px;">토</span>
-          <span style="font-size: 13px; color: #D1D5DB; padding: 8px;">30</span>
-          <span style="font-size: 13px; color: #D1D5DB; padding: 8px;">31</span>
-          <span style="font-size: 13px; padding: 8px;">1</span>
-          <span style="font-size: 13px; padding: 8px;">2</span>
-          <span style="font-size: 13px; padding: 8px;">3</span>
-          <span style="font-size: 13px; padding: 8px;">4</span>
-          <span style="font-size: 13px; padding: 8px;">5</span>
-          <span style="font-size: 13px; padding: 8px;">6</span>
-          <span style="font-size: 13px; padding: 8px;">7</span>
-          <span style="font-size: 13px; padding: 8px;">8</span>
-          <span style="font-size: 13px; padding: 8px;">9</span>
-          <span style="font-size: 13px; padding: 8px;">10</span>
-          <span style="font-size: 13px; padding: 8px;">11</span>
-          <span style="font-size: 13px; padding: 8px;">12</span>
-          <span style="font-size: 13px; padding: 8px;">13</span>
-          <span style="font-size: 13px; padding: 8px;">14</span>
-          <span style="font-size: 13px; background: var(--primary); color: white; border-radius: 8px; padding: 8px; font-weight: 600;">15</span>
-          <span style="font-size: 13px; padding: 8px;">16</span>
-          <span style="font-size: 13px; padding: 8px;">17</span>
-          <span style="font-size: 13px; padding: 8px;">18</span>
-          <span style="font-size: 13px; padding: 8px;">19</span>
-        </div>
-        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
-          <span class="time-pill selected" style="font-size: 13px;">오전 10:00</span>
-          <span class="time-pill" style="font-size: 13px;">오후 2:00</span>
-          <span class="time-pill" style="font-size: 13px;">저녁 6:00</span>
-        </div>
-        <div style="background: var(--primary-light); border-radius: 10px; padding: 12px; font-size: 13px; color: var(--primary);">
-          ✓ 5월 15일 오전 10:00 · 이민설명회 · 30명
-        </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span>SEMINAR</span><span>FORUM</span><span>LECTURE</span><span>IR PITCH</span><span>CONFERENCE</span><span>DEMO DAY</span>
+    <span>SEMINAR</span><span>FORUM</span><span>LECTURE</span><span>IR PITCH</span><span>CONFERENCE</span><span>DEMO DAY</span>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <div class="container">
+    <p class="manifesto-text">
+      이벤트는 <span class="strike">행사</span><span class="accent">결과</span>입니다.<br>
+      우리는 <span class="yellow">현장</span>으로 증명합니다.
+    </p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services" style="padding-top:60px;">
+  <div class="container">
+    <div class="sec-head">
+      <h2>SERVICES.<span class="ko">고르세요. 셋 중 하나.</span></h2>
+      <p class="sec-head-right">목적과 예산, 규모에 따라 세 가지 패키지 중 선택하세요. 모든 패키지는 결제일로부터 최대 3개월 이내 진행되며 계약금은 총 비용의 10%입니다.</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service">
+        <div class="service-tag">PACKAGE / 01</div>
+        <div class="service-num">01</div>
+        <h3 class="service-title">기본 운영</h3>
+        <div class="service-en">Basic Operation</div>
+        <div class="service-price">협의<small>/ 건별</small></div>
+        <div class="service-divider"></div>
+        <ul class="service-list">
+          <li>대관 섭외 및 계약</li>
+          <li>현장 세팅·장비 준비</li>
+          <li>참가자 접수·안내</li>
+          <li>현장 진행·운영 관리</li>
+        </ul>
+        <div class="service-note">서비스 제공기간: 결제일로부터 최대 3개월 · 계약금 10% · <a href="javascript:void(0)" onclick="openRefund()" style="text-decoration:underline;color:inherit;">환불정책</a></div>
+      </article>
+
+      <article class="service service-popular">
+        <div class="service-popular-tag">Most Popular</div>
+        <div class="service-tag" style="opacity:0.85;">PACKAGE / 02</div>
+        <div class="service-num">02</div>
+        <h3 class="service-title">지식 풀서비스</h3>
+        <div class="service-en">Knowledge Full-Service</div>
+        <div class="service-price">150만원~<small>/ 20명 기준</small></div>
+        <div class="service-divider"></div>
+        <ul class="service-list">
+          <li>Level 1 전체 포함</li>
+          <li>사전 기획·프로그램 설계</li>
+          <li>홍보 콘텐츠 제작·배포</li>
+          <li>영상 촬영·편집·납품</li>
+          <li>SNS 숏클립·강연자 브랜딩</li>
+        </ul>
+        <div class="service-note">서비스 제공기간: 결제일로부터 최대 3개월 · 계약금 10% · <a href="javascript:void(0)" onclick="openRefund()" style="text-decoration:underline;color:inherit;">환불정책</a></div>
+        <a href="#book" class="btn btn-lg" style="background:var(--bg); color:var(--fg); border-color:var(--bg); margin-top:28px; justify-content:center;">이 서비스로 예약</a>
+      </article>
+
+      <article class="service">
+        <div class="service-tag">PACKAGE / 03</div>
+        <div class="service-num">03</div>
+        <h3 class="service-title">포럼 풀패키지</h3>
+        <div class="service-en">Insight Marketing Forum</div>
+        <div class="service-price">맞춤 견적<small>/ 협의</small></div>
+        <div class="service-divider"></div>
+        <ul class="service-list">
+          <li>Level 1+2 전체 포함</li>
+          <li>포럼 브랜딩 패키지</li>
+          <li>연사 섭외 큐레이션</li>
+          <li>인사이트 리포트 제작</li>
+          <li>미디어 기사화·배포</li>
+        </ul>
+        <div class="service-note">서비스 제공기간: 결제일로부터 최대 3개월 · 계약금 10% · <a href="javascript:void(0)" onclick="openRefund()" style="text-decoration:underline;color:inherit;">환불정책</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="section" id="who" style="padding-top:60px;">
+  <div class="container">
+    <div class="sec-head">
+      <h2>WHO IT'S FOR.<span class="ko">이런 분들이 찾습니다.</span></h2>
+      <p class="sec-head-right">전문성과 결과가 필요한 이벤트의 모든 영역 — 변호사·교수·컨설턴트·종교 커뮤니티·스타트업·공공기관까지.</p>
+    </div>
+
+    <div class="who-grid">
+      <div class="who-item">
+        <div class="who-num">01</div>
+        <div class="who-content"><h4>해외 거주 변호사</h4><p>이민·비자 설명회, 법률 자문 세미나</p></div>
+      </div>
+      <div class="who-item">
+        <div class="who-num">02</div>
+        <div class="who-content"><h4>해외 대학 한인 교수</h4><p>학술 강연·연구 네트워킹</p></div>
+      </div>
+      <div class="who-item">
+        <div class="who-num">03</div>
+        <div class="who-content"><h4>전문 컨설턴트·강사</h4><p>수강생 모집·개인 브랜딩</p></div>
+      </div>
+      <div class="who-item">
+        <div class="who-num">04</div>
+        <div class="who-content"><h4>교회·종교 커뮤니티</h4><p>초청 강좌·세무·법률 세미나</p></div>
+      </div>
+      <div class="who-item">
+        <div class="who-num">05</div>
+        <div class="who-content"><h4>스타트업 기업인</h4><p>IR 피칭·데모데이·투자자 미팅</p></div>
+      </div>
+      <div class="who-item">
+        <div class="who-num">06</div>
+        <div class="who-content"><h4>정부·공공기관</h4><p>정책 포럼·컨퍼런스·발표회</p></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Services Section -->
-  <section id="services" class="section" style="background: #F9FAFB;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-      <div style="text-align: center; margin-bottom: 48px;">
-        <span class="badge" style="margin-bottom: 12px; display: inline-block;">서비스</span>
-        <h2 style="font-size: 36px; font-weight: 800; margin-top: 12px;">맞춤형 3단계 서비스</h2>
-        <p style="font-size: 17px; color: #6B7280; margin-top: 12px;">의뢰인의 목적·예산·규모에 따라 최적의 레벨을 선택하세요</p>
+<!-- VENUES -->
+<section class="section" id="venues" style="padding-top:60px;">
+  <div class="container">
+    <div class="sec-head">
+      <h2>VENUES.<span class="ko">서울 주요 거점.</span></h2>
+      <p class="sec-head-right">수요 밀집지·교통·편의·비용 기준으로 선별한 추천 대관 공간. 3 권역 50+ 파트너 베뉴.</p>
+    </div>
+
+    <div class="venues-grid">
+      <article class="venue">
+        <div class="venue-tag">REGION / 01</div>
+        <h3>서울역<br>· 시청권</h3>
+        <p>KTX·공항철도 접근성 최고. 지방 참가자가 가장 모이기 쉬운 거점.</p>
+        <div class="venue-list">스페이스쉐어 · 서울역 공간모아 · 회의실 다수</div>
+      </article>
+      <article class="venue">
+        <div class="venue-tag">REGION / 02</div>
+        <h3>강남<br>· 서초권</h3>
+        <p>비즈니스 미팅 최적. 고급 세미나룸과 스타트업 인프라가 밀집한 권역.</p>
+        <div class="venue-list">마루180 · 역삼 스타트업 캠퍼스 · 위워크</div>
+      </article>
+      <article class="venue">
+        <div class="venue-tag">REGION / 03</div>
+        <h3>광화문<br>· DDP권</h3>
+        <p>미디어·정부·정책 행사 최적. 대규모 컨벤션도 가능한 중심 권역.</p>
+        <div class="venue-list">스페이스쉐어 서울중부 · DDP · 광화문 D-Tower</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<section class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-num">150+</div>
+        <div class="stat-label">Events Done</div>
+        <div class="stat-desc">2021년부터 성공적으로 운영한 전문가 이벤트</div>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-        <!-- Level 1 -->
-        <div class="card">
-          <div style="font-size: 14px; color: var(--primary); font-weight: 600; margin-bottom: 8px;">LEVEL 1</div>
-          <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">기본 운영 패키지</h3>
-          <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">Basic Operation Package</p>
-          <div style="font-size: 28px; font-weight: 800; margin-bottom: 20px;">협의<span style="font-size: 14px; font-weight: 400; color: #9CA3AF;"> / 건별</span></div>
-          <hr style="border: none; border-top: 1px solid #f0f0f0; margin-bottom: 20px;">
-          <ul style="list-style: none; padding: 0; font-size: 15px; line-height: 2.2; color: #4B5563;">
-            <li>✓ 대관 섭외 및 계약</li>
-            <li>✓ 현장 세팅 · 장비 준비</li>
-            <li>✓ 참가자 접수 · 안내</li>
-            <li>✓ 현장 진행 · 운영 관리</li>
-          </ul>
-          <div style="margin-top: 16px; padding: 12px; background: #F3F4F6; border-radius: 10px; font-size: 12px; color: #6B7280; line-height: 1.6;">
-            서비스 제공기간: 결제일로부터 최대 3개월<br>
-            계약금: 총 비용의 10% | <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color:var(--primary);text-decoration:underline;">환불정책 보기</a>
-          </div>
-        </div>
-        <!-- Level 2 -->
-        <div class="card card-popular" style="transform: scale(1.03);">
-          <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%);"><span class="badge">가장 인기</span></div>
-          <div style="font-size: 14px; color: var(--primary); font-weight: 600; margin-bottom: 8px;">LEVEL 2</div>
-          <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">지식 풀서비스</h3>
-          <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">Knowledge Full-Service</p>
-          <div style="font-size: 28px; font-weight: 800; margin-bottom: 4px;">150만원~<span style="font-size: 14px; font-weight: 400; color: #9CA3AF;"> / 20명 기준</span></div>
-          <div style="font-size: 13px; color: #9CA3AF; margin-bottom: 20px;">이외 인원·규모는 개별 협의</div>
-          <hr style="border: none; border-top: 1px solid #f0f0f0; margin-bottom: 20px;">
-          <ul style="list-style: none; padding: 0; font-size: 15px; line-height: 2.2; color: #4B5563;">
-            <li>✓ Level 1 전체 포함</li>
-            <li>✓ 사전 기획 · 프로그램 설계</li>
-            <li>✓ 홍보 콘텐츠 제작 · 배포</li>
-            <li>✓ 영상 촬영 · 편집 · 납품</li>
-            <li>✓ SNS 숏클립 · 강연자 브랜딩</li>
-          </ul>
-          <div style="margin-top: 16px; padding: 12px; background: #EEF2FF; border-radius: 10px; font-size: 12px; color: #4F46E5; line-height: 1.6;">
-            서비스 제공기간: 결제일로부터 최대 3개월<br>
-            계약금: 총 비용의 10% | <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color:#4F46E5;text-decoration:underline;">환불정책 보기</a>
-          </div>
-          <a href="#booking-demo" class="btn-primary" style="display: block; text-align: center; margin-top: 16px;">이 서비스 예약하기</a>
-        </div>
-        <!-- Level 3 -->
-        <div class="card">
-          <div style="font-size: 14px; color: var(--primary); font-weight: 600; margin-bottom: 8px;">LEVEL 3</div>
-          <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">포럼 풀패키지</h3>
-          <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">Insight Marketing Forum</p>
-          <div style="font-size: 28px; font-weight: 800; margin-bottom: 20px;">맞춤 견적<span style="font-size: 14px; font-weight: 400; color: #9CA3AF;"> / 협의</span></div>
-          <hr style="border: none; border-top: 1px solid #f0f0f0; margin-bottom: 20px;">
-          <ul style="list-style: none; padding: 0; font-size: 15px; line-height: 2.2; color: #4B5563;">
-            <li>✓ Level 1+2 전체 포함</li>
-            <li>✓ 포럼 브랜딩 패키지</li>
-            <li>✓ 연사 섭외 큐레이션</li>
-            <li>✓ 인사이트 리포트 제작</li>
-            <li>✓ 미디어 기사화 · 배포</li>
-          </ul>
-          <div style="margin-top: 16px; padding: 12px; background: #F3F4F6; border-radius: 10px; font-size: 12px; color: #6B7280; line-height: 1.6;">
-            서비스 제공기간: 결제일로부터 최대 3개월<br>
-            계약금: 총 비용의 10% | <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color:var(--primary);text-decoration:underline;">환불정책 보기</a>
-          </div>
-        </div>
+      <div class="stat-cell">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">CSAT</div>
+        <div class="stat-desc">고객 만족도 — 재의뢰율 70% 이상</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Partners</div>
+        <div class="stat-desc">베뉴·미디어·연사 등 검증된 파트너 네트워크</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Target Customers -->
-  <section class="section">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-      <div style="text-align: center; margin-bottom: 48px;">
-        <span class="badge" style="display: inline-block;">대상 고객</span>
-        <h2 style="font-size: 36px; font-weight: 800; margin-top: 12px;">이런 분들을 위한 서비스입니다</h2>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px;">
-        <div class="card customer-card">
-          <div class="customer-icon">⚖️</div>
-          <h4 style="font-size: 15px; font-weight: 700;">해외 거주<br>변호사</h4>
-          <p style="font-size: 13px; color: #9CA3AF; margin-top: 8px;">이민·비자 설명회</p>
-        </div>
-        <div class="card customer-card">
-          <div class="customer-icon">🎓</div>
-          <h4 style="font-size: 15px; font-weight: 700;">해외 대학<br>한인 교수</h4>
-          <p style="font-size: 13px; color: #9CA3AF; margin-top: 8px;">학술 강연·네트워킹</p>
-        </div>
-        <div class="card customer-card">
-          <div class="customer-icon">💼</div>
-          <h4 style="font-size: 15px; font-weight: 700;">전문컨설턴트<br>·강사</h4>
-          <p style="font-size: 13px; color: #9CA3AF; margin-top: 8px;">수강생 모집·브랜드</p>
-        </div>
-        <div class="card customer-card">
-          <div class="customer-icon">⛪</div>
-          <h4 style="font-size: 15px; font-weight: 700;">교회·종교<br>커뮤니티</h4>
-          <p style="font-size: 13px; color: #9CA3AF; margin-top: 8px;">초청 강좌·세무·법률</p>
-        </div>
-        <div class="card customer-card">
-          <div class="customer-icon">🚀</div>
-          <h4 style="font-size: 15px; font-weight: 700;">스타트업<br>기업인</h4>
-          <p style="font-size: 13px; color: #9CA3AF; margin-top: 8px;">IR 피칭·데모데이</p>
-        </div>
-        <div class="card customer-card">
-          <div class="customer-icon">🏛️</div>
-          <h4 style="font-size: 15px; font-weight: 700;">정부·공공<br>기관</h4>
-          <p style="font-size: 13px; color: #9CA3AF; margin-top: 8px;">정책 포럼·컨퍼런스</p>
-        </div>
-      </div>
+<!-- BOOKING FLOW -->
+<section class="section" id="book" style="padding-top:60px; background:var(--bg);">
+  <div class="container-narrow">
+    <div class="sec-head" style="margin-bottom:48px;">
+      <h2 style="font-family:'Manrope',sans-serif;">BOOK<br>NOW.<span class="ko">이벤트를 예약하세요.</span></h2>
+      <p class="sec-head-right">4단계로 끝나는 빠른 예약. 신청 후 24시간 내 담당자가 직접 연락드립니다.</p>
     </div>
-  </section>
 
-  <!-- Venues Section -->
-  <section class="section" style="background: #F9FAFB;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-      <div style="text-align: center; margin-bottom: 48px;">
-        <span class="badge" style="display: inline-block;">추천 공간</span>
-        <h2 style="font-size: 36px; font-weight: 800; margin-top: 12px;">서울 주요 거점 공간</h2>
-        <p style="font-size: 17px; color: #6B7280; margin-top: 12px;">수요 밀집지·교통·편의·비용으로 선별한 추천 대관 공간</p>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-        <div class="card" style="text-align: center;">
-          <div style="font-size: 40px; margin-bottom: 16px;">🚄</div>
-          <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">서울역 · 시청권</h3>
-          <p style="font-size: 14px; color: #6B7280; line-height: 1.7;">KTX·공항철도 접근성 최고<br>지방 참가자 최우선 지역<br>스페이스쉐어, 서울역 공간모아</p>
-        </div>
-        <div class="card" style="text-align: center;">
-          <div style="font-size: 40px; margin-bottom: 16px;">🏙️</div>
-          <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">강남 · 서초권</h3>
-          <p style="font-size: 14px; color: #6B7280; line-height: 1.7;">비즈니스 미팅 최적 지역<br>고급 세미나룸 다수<br>마루180, 역삼 스타트업 캠퍼스</p>
-        </div>
-        <div class="card" style="text-align: center;">
-          <div style="font-size: 40px; margin-bottom: 16px;">🏛️</div>
-          <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">광화문 · DDP권</h3>
-          <p style="font-size: 14px; color: #6B7280; line-height: 1.7;">미디어·정부·정책 행사 최적<br>대규모 컨벤션 가능<br>스페이스쉐어 서울중부센터</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Booking Demo Section -->
-  <section id="booking-demo" class="section">
-    <div style="max-width: 800px; margin: 0 auto; padding: 0 24px;">
-      <div style="text-align: center; margin-bottom: 40px;">
-        <span class="badge" style="display: inline-block;">이벤트 예약</span>
-        <h2 style="font-size: 36px; font-weight: 800; margin-top: 12px;">이벤트를 예약하세요</h2>
-        <p style="font-size: 17px; color: #6B7280; margin-top: 12px;">4단계만 거치면 예약 신청이 완료됩니다</p>
+    <div class="booking-shell">
+      <div class="booking-progress">
+        <span class="progress-label"><span class="current" id="progressCur">01</span> / 04</span>
+        <div class="progress-bar" data-step="1" id="progressBar"></div>
+        <span class="progress-label" id="progressStep">EVENT TYPE</span>
       </div>
 
-      <!-- Step Indicator -->
-      <div style="display: flex; justify-content: center; margin-bottom: 40px;" id="stepIndicator">
-        <div class="step-indicator">
-          <div class="step-dot active" id="dot1">1</div>
-          <div class="step-line" id="line1"></div>
-          <div class="step-dot pending" id="dot2">2</div>
-          <div class="step-line" id="line2"></div>
-          <div class="step-dot pending" id="dot3">3</div>
-          <div class="step-line" id="line3"></div>
-          <div class="step-dot pending" id="dot4">4</div>
-        </div>
-      </div>
-
-      <!-- Step 1: Event Type -->
+      <!-- Step 1 -->
       <div id="step1" class="fade-in">
-        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 24px;">어떤 이벤트를 원하시나요?</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-          <div class="step-card" onclick="selectType(this, '이민·비자 설명회')">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 24px;">⚖️</span>
-              <div>
-                <div style="font-weight: 600;">이민·비자 설명회</div>
-                <div style="font-size: 13px; color: #9CA3AF;">해외 이민·비자 관련 전문 설명회</div>
-              </div>
-            </div>
-          </div>
-          <div class="step-card" onclick="selectType(this, '전문가 강연·세미나')">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 24px;">🎤</span>
-              <div>
-                <div style="font-weight: 600;">전문가 강연·세미나</div>
-                <div style="font-size: 13px; color: #9CA3AF;">전문 지식 공유 세미나</div>
-              </div>
-            </div>
-          </div>
-          <div class="step-card" onclick="selectType(this, '비즈니스 포럼·컨퍼런스')">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 24px;">🏢</span>
-              <div>
-                <div style="font-weight: 600;">비즈니스 포럼·컨퍼런스</div>
-                <div style="font-size: 13px; color: #9CA3AF;">업계 전문가 네트워킹 포럼</div>
-              </div>
-            </div>
-          </div>
-          <div class="step-card" onclick="selectType(this, 'IR 피칭·사업 설명회')">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 24px;">📊</span>
-              <div>
-                <div style="font-weight: 600;">IR 피칭·사업 설명회</div>
-                <div style="font-size: 13px; color: #9CA3AF;">투자 유치·사업 소개</div>
-              </div>
-            </div>
-          </div>
-          <div class="step-card" onclick="selectType(this, '교회·종교 초청 강좌')">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 24px;">⛪</span>
-              <div>
-                <div style="font-weight: 600;">교회·종교 초청 강좌</div>
-                <div style="font-size: 13px; color: #9CA3AF;">종교 커뮤니티 전문 강좌</div>
-              </div>
-            </div>
-          </div>
-          <div class="step-card" onclick="selectType(this, '기타')">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 24px;">✏️</span>
-              <div>
-                <div style="font-weight: 600;">기타</div>
-                <div style="font-size: 13px; color: #9CA3AF;">직접 입력</div>
-              </div>
-            </div>
-          </div>
+        <h3 class="step-title">어떤 이벤트를<br>원하시나요?</h3>
+        <div class="option-grid">
+          <button class="option" onclick="selectType(this,'이민·비자 설명회')">
+            <div class="option-label">이민·비자 설명회</div>
+            <div class="option-desc">해외 이민·비자 전문 설명회</div>
+          </button>
+          <button class="option" onclick="selectType(this,'전문가 강연·세미나')">
+            <div class="option-label">전문가 강연·세미나</div>
+            <div class="option-desc">전문 지식 공유 세미나</div>
+          </button>
+          <button class="option" onclick="selectType(this,'비즈니스 포럼·컨퍼런스')">
+            <div class="option-label">비즈니스 포럼·컨퍼런스</div>
+            <div class="option-desc">업계 전문가 네트워킹 포럼</div>
+          </button>
+          <button class="option" onclick="selectType(this,'IR 피칭·사업 설명회')">
+            <div class="option-label">IR 피칭·사업 설명회</div>
+            <div class="option-desc">투자 유치·사업 소개</div>
+          </button>
+          <button class="option" onclick="selectType(this,'교회·종교 초청 강좌')">
+            <div class="option-label">교회·종교 초청 강좌</div>
+            <div class="option-desc">종교 커뮤니티 전문 강좌</div>
+          </button>
+          <button class="option" onclick="selectType(this,'기타')">
+            <div class="option-label">기타</div>
+            <div class="option-desc">직접 입력해 주세요</div>
+          </button>
         </div>
-        <div style="text-align: right; margin-top: 24px;">
-          <button class="btn-primary" onclick="goStep(2)">다음 단계 →</button>
+        <div class="flow-actions" style="justify-content:flex-end;">
+          <button class="btn btn-accent" onclick="goStep(2)">다음 단계 →</button>
         </div>
       </div>
 
-      <!-- Step 2: Date & Time -->
-      <div id="step2" style="display: none;" class="fade-in">
-        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 24px;">희망 일정을 선택하세요</h3>
-        <div style="display: flex; gap: 24px;">
-          <div style="flex: 1;">
-            <div style="background: white; border: 1px solid #E5E7EB; border-radius: 16px; padding: 20px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <button onclick="changeMonth(-1)" style="background: none; border: none; font-size: 18px; cursor: pointer;">←</button>
-                <strong id="calendarMonth" style="font-size: 16px;">2026년 5월</strong>
-                <button onclick="changeMonth(1)" style="background: none; border: none; font-size: 18px; cursor: pointer;">→</button>
-              </div>
-              <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center;">
-                <span style="font-size: 12px; color: #9CA3AF; padding: 8px;">일</span>
-                <span style="font-size: 12px; color: #9CA3AF; padding: 8px;">월</span>
-                <span style="font-size: 12px; color: #9CA3AF; padding: 8px;">화</span>
-                <span style="font-size: 12px; color: #9CA3AF; padding: 8px;">수</span>
-                <span style="font-size: 12px; color: #9CA3AF; padding: 8px;">목</span>
-                <span style="font-size: 12px; color: #9CA3AF; padding: 8px;">금</span>
-                <span style="font-size: 12px; color: #9CA3AF; padding: 8px;">토</span>
-              </div>
-              <div id="calendarDays" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center;"></div>
+      <!-- Step 2 -->
+      <div id="step2" style="display:none;" class="fade-in">
+        <h3 class="step-title">희망 일정을<br>선택하세요.</h3>
+        <div class="form-grid" style="margin-bottom:24px;">
+          <div class="calendar">
+            <div class="calendar-head">
+              <button class="calendar-nav-btn" onclick="changeMonth(-1)" aria-label="이전 달">←</button>
+              <strong id="calendarMonth">2026년 5월</strong>
+              <button class="calendar-nav-btn" onclick="changeMonth(1)" aria-label="다음 달">→</button>
             </div>
+            <div class="calendar-weekdays">
+              <div class="calendar-weekday">일</div><div class="calendar-weekday">월</div><div class="calendar-weekday">화</div><div class="calendar-weekday">수</div><div class="calendar-weekday">목</div><div class="calendar-weekday">금</div><div class="calendar-weekday">토</div>
+            </div>
+            <div id="calendarDays" class="calendar-days"></div>
           </div>
-          <div style="flex: 1;">
-            <h4 style="font-weight: 600; margin-bottom: 12px;">⏰ 희망 시간대</h4>
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
-              <div class="time-pill" onclick="selectTime(this, '오전')" style="text-align: center;">🌅 오전 (09:00 - 12:00)</div>
-              <div class="time-pill" onclick="selectTime(this, '오후')" style="text-align: center;">☀️ 오후 (13:00 - 17:00)</div>
-              <div class="time-pill" onclick="selectTime(this, '저녁')" style="text-align: center;">🌙 저녁 (18:00 - 21:00)</div>
+          <div>
+            <label class="eyebrow" style="display:block; margin-bottom:14px;">희망 시간대</label>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:28px;">
+              <button class="pill" onclick="selectTime(this,'오전')">오전 (09–12시)</button>
+              <button class="pill" onclick="selectTime(this,'오후')">오후 (13–17시)</button>
+              <button class="pill" onclick="selectTime(this,'저녁')">저녁 (18–21시)</button>
             </div>
-            <h4 style="font-weight: 600; margin-bottom: 12px;">👥 예상 참가 인원</h4>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-              <div class="time-pill" onclick="selectCount(this, '10~30명')" style="text-align: center;">10~30명</div>
-              <div class="time-pill" onclick="selectCount(this, '30~60명')" style="text-align: center;">30~60명</div>
-              <div class="time-pill" onclick="selectCount(this, '60~100명')" style="text-align: center;">60~100명</div>
-              <div class="time-pill" onclick="selectCount(this, '100명 이상')" style="text-align: center;">100명 이상</div>
+            <label class="eyebrow" style="display:block; margin-bottom:14px;">예상 참가 인원</label>
+            <div class="option-grid">
+              <button class="pill" onclick="selectCount(this,'10~30명')">10~30명</button>
+              <button class="pill" onclick="selectCount(this,'30~60명')">30~60명</button>
+              <button class="pill" onclick="selectCount(this,'60~100명')">60~100명</button>
+              <button class="pill" onclick="selectCount(this,'100명 이상')">100명 이상</button>
             </div>
           </div>
         </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 24px;">
-          <button class="btn-outline" onclick="goStep(1)">← 이전</button>
-          <button class="btn-primary" onclick="goStep(3)">다음 단계 →</button>
+        <div class="flow-actions">
+          <button class="btn btn-outline" onclick="goStep(1)">← 이전</button>
+          <button class="btn btn-accent" onclick="goStep(3)">다음 단계 →</button>
         </div>
       </div>
 
-      <!-- Step 3: Region & Level -->
-      <div id="step3" style="display: none;" class="fade-in">
-        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 24px;">희망 지역과 서비스 레벨</h3>
-        <h4 style="font-weight: 600; margin-bottom: 12px;">📍 희망 지역</h4>
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px;">
-          <div class="region-card" onclick="selectRegion(this, '서울역·시청권')">
-            <div style="font-size: 28px; margin-bottom: 8px;">🚄</div>
-            <div style="font-weight: 600; font-size: 14px;">서울역·시청권</div>
-          </div>
-          <div class="region-card" onclick="selectRegion(this, '강남·서초권')">
-            <div style="font-size: 28px; margin-bottom: 8px;">🏙️</div>
-            <div style="font-weight: 600; font-size: 14px;">강남·서초권</div>
-          </div>
-          <div class="region-card" onclick="selectRegion(this, '광화문·DDP권')">
-            <div style="font-size: 28px; margin-bottom: 8px;">🏛️</div>
-            <div style="font-weight: 600; font-size: 14px;">광화문·DDP권</div>
-          </div>
-          <div class="region-card" onclick="selectRegion(this, '기타 지역')">
-            <div style="font-size: 28px; margin-bottom: 8px;">📌</div>
-            <div style="font-weight: 600; font-size: 14px;">기타 지역</div>
-          </div>
+      <!-- Step 3 -->
+      <div id="step3" style="display:none;" class="fade-in">
+        <h3 class="step-title">희망 지역과<br>서비스 레벨.</h3>
+        <label class="eyebrow" style="display:block; margin-bottom:14px;">희망 지역</label>
+        <div class="option-grid-4" style="margin-bottom:32px;">
+          <button class="pill" onclick="selectRegion(this,'서울역·시청권')">서울역·시청권</button>
+          <button class="pill" onclick="selectRegion(this,'강남·서초권')">강남·서초권</button>
+          <button class="pill" onclick="selectRegion(this,'광화문·DDP권')">광화문·DDP권</button>
+          <button class="pill" onclick="selectRegion(this,'기타 지역')">기타 지역</button>
         </div>
-        <h4 style="font-weight: 600; margin-bottom: 12px;">📋 서비스 레벨</h4>
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-          <div class="step-card" onclick="selectLevel(this, 'Level 1')">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+        <label class="eyebrow" style="display:block; margin-bottom:14px;">서비스 레벨</label>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="option" onclick="selectLevel(this,'Level 1')">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
               <div>
-                <div style="font-weight: 600;">Level 1 · 기본 운영 패키지</div>
-                <div style="font-size: 13px; color: #9CA3AF;">대관·현장 세팅·진행·운영</div>
+                <div class="option-label">LEVEL 01 · 기본 운영</div>
+                <div class="option-desc">대관·현장 세팅·진행·운영</div>
               </div>
-              <div style="font-weight: 700; color: var(--primary);">협의</div>
+              <div style="font-family:'Manrope',sans-serif; font-weight:900; font-size:18px;">협의</div>
             </div>
-          </div>
-          <div class="step-card" onclick="selectLevel(this, 'Level 2')">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+          </button>
+          <button class="option" onclick="selectLevel(this,'Level 2')">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
               <div>
-                <div style="font-weight: 600;">Level 2 · 지식 풀서비스 <span class="badge" style="font-size: 11px; padding: 2px 8px;">인기</span></div>
-                <div style="font-size: 13px; color: #9CA3AF;">기획·홍보·운영·콘텐츠 제작</div>
+                <div class="option-label">LEVEL 02 · 지식 풀서비스 · POPULAR</div>
+                <div class="option-desc">기획·홍보·운영·콘텐츠 제작</div>
               </div>
-              <div style="font-weight: 700; color: var(--primary);">150만원~</div>
+              <div style="font-family:'Manrope',sans-serif; font-weight:900; font-size:18px;">150만원~</div>
             </div>
-          </div>
-          <div class="step-card" onclick="selectLevel(this, 'Level 3')">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+          </button>
+          <button class="option" onclick="selectLevel(this,'Level 3')">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
               <div>
-                <div style="font-weight: 600;">Level 3 · 포럼 풀패키지</div>
-                <div style="font-size: 13px; color: #9CA3AF;">브랜딩·미디어·커뮤니티 연계</div>
+                <div class="option-label">LEVEL 03 · 포럼 풀패키지</div>
+                <div class="option-desc">브랜딩·미디어·커뮤니티 연계</div>
               </div>
-              <div style="font-weight: 700; color: var(--primary);">맞춤 견적</div>
+              <div style="font-family:'Manrope',sans-serif; font-weight:900; font-size:18px;">맞춤 견적</div>
             </div>
-          </div>
+          </button>
         </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 24px;">
-          <button class="btn-outline" onclick="goStep(2)">← 이전</button>
-          <button class="btn-primary" onclick="goStep(4)">다음 단계 →</button>
+        <div class="flow-actions">
+          <button class="btn btn-outline" onclick="goStep(2)">← 이전</button>
+          <button class="btn btn-accent" onclick="goStep(4)">다음 단계 →</button>
         </div>
       </div>
 
-      <!-- Step 4: Contact Info -->
-      <div id="step4" style="display: none;" class="fade-in">
-        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 24px;">연락처를 입력해 주세요</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px;">
-          <div>
-            <label style="font-size: 14px; font-weight: 600; display: block; margin-bottom: 6px;">이름 *</label>
-            <input type="text" placeholder="홍길동" id="inputName">
+      <!-- Step 4 -->
+      <div id="step4" style="display:none;" class="fade-in">
+        <h3 class="step-title">연락처를<br>입력해 주세요.</h3>
+        <div class="form-grid" style="margin-bottom:20px;">
+          <div class="field">
+            <label>이름 *</label>
+            <input type="text" id="inputName" placeholder="홍길동" autocomplete="name">
           </div>
-          <div>
-            <label style="font-size: 14px; font-weight: 600; display: block; margin-bottom: 6px;">소속 (회사/단체)</label>
-            <input type="text" placeholder="회사 또는 단체명" id="inputCompany">
+          <div class="field">
+            <label>소속</label>
+            <input type="text" id="inputCompany" placeholder="회사 또는 단체명" autocomplete="organization">
           </div>
-          <div>
-            <label style="font-size: 14px; font-weight: 600; display: block; margin-bottom: 6px;">이메일 *</label>
-            <input type="email" placeholder="example@email.com" id="inputEmail">
+          <div class="field">
+            <label>이메일 *</label>
+            <input type="email" id="inputEmail" placeholder="example@email.com" autocomplete="email" inputmode="email">
           </div>
-          <div>
-            <label style="font-size: 14px; font-weight: 600; display: block; margin-bottom: 6px;">전화번호 *</label>
-            <input type="tel" placeholder="010-1234-5678" id="inputPhone">
-          </div>
-        </div>
-        <div style="margin-bottom: 16px;">
-          <label style="font-size: 14px; font-weight: 600; display: block; margin-bottom: 6px;">추가 요청사항</label>
-          <textarea rows="3" placeholder="원하시는 사항이 있으시면 자유롭게 입력해 주세요" id="inputMessage"></textarea>
-        </div>
-
-        <!-- Summary Card -->
-        <div style="background: var(--primary-light); border-radius: 12px; padding: 20px; margin-bottom: 16px;" id="summaryCard">
-          <h4 style="font-weight: 700; margin-bottom: 12px; color: var(--primary);">📋 예약 요약</h4>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 14px;">
-            <div>이벤트: <strong id="sumType">-</strong></div>
-            <div>날짜: <strong id="sumDate">-</strong></div>
-            <div>시간: <strong id="sumTime">-</strong></div>
-            <div>인원: <strong id="sumCount">-</strong></div>
-            <div>지역: <strong id="sumRegion">-</strong></div>
-            <div>서비스: <strong id="sumLevel">-</strong></div>
+          <div class="field">
+            <label>전화번호 *</label>
+            <input type="tel" id="inputPhone" placeholder="010-0000-0000" autocomplete="tel" inputmode="tel">
           </div>
         </div>
-
-        <div style="background: #FEF3C7; border-radius: 12px; padding: 14px; margin-bottom: 24px; font-size: 14px; color: #92400E;">
-          💳 예약 확정 후 <strong>카드결제</strong> 또는 <strong>계좌이체</strong>로 결제 가능합니다. 담당자가 확인 후 연락드립니다.
+        <div class="field" style="margin-bottom:24px;">
+          <label>추가 요청사항</label>
+          <textarea rows="3" id="inputMessage" placeholder="원하시는 사항이 있으시면 자유롭게 입력해 주세요"></textarea>
         </div>
-
-        <div style="display: flex; justify-content: space-between;">
-          <button class="btn-outline" onclick="goStep(3)">← 이전</button>
-          <button class="btn-primary" onclick="submitBooking()" style="padding: 14px 40px;">🎉 예약 신청하기</button>
+        <div class="summary">
+          <div class="summary-head">예약 요약</div>
+          <div class="summary-grid">
+            <div><div class="k">EVENT</div><div class="v" id="sumType">—</div></div>
+            <div><div class="k">DATE</div><div class="v" id="sumDate">—</div></div>
+            <div><div class="k">TIME</div><div class="v" id="sumTime">—</div></div>
+            <div><div class="k">COUNT</div><div class="v" id="sumCount">—</div></div>
+            <div><div class="k">REGION</div><div class="v" id="sumRegion">—</div></div>
+            <div><div class="k">LEVEL</div><div class="v" id="sumLevel">—</div></div>
+          </div>
+        </div>
+        <div class="notice">예약 확정 후 카드결제 또는 계좌이체로 결제 가능합니다. 담당자가 확인 후 24시간 내 연락드립니다.</div>
+        <div class="flow-actions">
+          <button class="btn btn-outline" onclick="goStep(3)">← 이전</button>
+          <button class="btn btn-accent btn-lg" onclick="submitBooking()">예약 신청하기 →</button>
         </div>
       </div>
 
-      <!-- Step Complete -->
-      <div id="stepComplete" style="display: none; text-align: center; padding: 40px 0;" class="fade-in">
-        <div style="width: 80px; height: 80px; background: #10B981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 36px; color: white;">✓</div>
-        <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 12px;">예약이 접수되었습니다!</h2>
-        <p style="font-size: 17px; color: #6B7280; margin-bottom: 8px;">24시간 이내에 담당자가 연락드리겠습니다.</p>
-        <div style="background: var(--primary-light); display: inline-block; padding: 10px 24px; border-radius: 10px; font-weight: 600; color: var(--primary); margin-bottom: 32px;">
-          예약번호: <span id="bookingRef">KE-20260411-001</span>
-        </div>
-        <br>
-        <button class="btn-outline" onclick="resetForm()" style="margin-top: 16px;">새 예약하기</button>
+      <!-- Complete -->
+      <div id="stepComplete" style="display:none;" class="fade-in complete-card">
+        <div class="complete-mark">✓</div>
+        <h2 style="font-family:'Manrope',sans-serif; font-size:clamp(32px,5vw,56px); font-weight:900; letter-spacing:-0.03em; margin-bottom:16px;">RECEIVED.</h2>
+        <p class="dim" style="font-size:16px;">예약이 접수되었습니다. 24시간 이내 담당자가 연락드리겠습니다.</p>
+        <div class="complete-ref">REF / <span id="bookingRef">KE-20260411-001</span></div><br>
+        <button class="btn btn-outline" onclick="resetForm()">새 예약하기</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Admin Dashboard Demo (hidden until footer logo 5-click) -->
-  <section id="admin-demo" class="section" style="background: #F9FAFB; display: none;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-      <div style="text-align: center; margin-bottom: 40px;">
-        <span class="badge" style="display: inline-block;">관리자</span>
-        <h2 style="font-size: 36px; font-weight: 800; margin-top: 12px;">관리자 대시보드</h2>
-        <p style="font-size: 17px; color: #6B7280; margin-top: 12px;">예약 현황을 한눈에 확인하고 관리하세요</p>
+<!-- FAQ -->
+<section class="section" id="faq" style="padding-top:60px;">
+  <div class="container-narrow">
+    <div class="sec-head">
+      <h2>FAQ.<span class="ko">자주 묻는 질문.</span></h2>
+      <p class="sec-head-right">결제·환불·일정·진행 절차에 대한 답변. 추가 문의는 <a href="javascript:void(0)" onclick="openConsultModal()" style="text-decoration:underline; color:var(--accent);">무료 상담</a>으로.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><h4>서비스 진행 기간은 얼마나 걸리나요?</h4><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">결제일로부터 최대 3개월 이내 이벤트 진행이 완료됩니다. 기획·홍보·운영을 모두 포함한 풀서비스 기준입니다. 긴급 진행이 필요하신 경우 별도 협의 가능합니다.</div></div>
       </div>
-
-      <!-- Admin Login -->
-      <div id="adminLogin" style="max-width: 400px; margin: 0 auto;">
-        <div class="card" style="text-align: center;">
-          <div style="width: 64px; height: 64px; background: var(--primary-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px;">🔒</div>
-          <h3 style="font-size: 20px; margin-bottom: 8px;">관리자 로그인</h3>
-          <p style="font-size: 14px; color: #9CA3AF; margin-bottom: 24px;">비밀번호를 입력해 주세요</p>
-          <input type="password" id="adminPw" placeholder="비밀번호" style="margin-bottom: 16px; text-align: center;">
-          <br>
-          <button class="btn-primary" onclick="adminLogin()" style="width: 100%;">로그인</button>
-          <p style="font-size: 12px; color: #D1D5DB; margin-top: 12px;">관리자 전용</p>
-        </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><h4>계약금과 잔금은 어떻게 진행되나요?</h4><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">예약 확정을 위해 총 서비스 비용의 <strong>10%</strong>를 계약금으로 납부해 주셔야 합니다. 계약금 납부 시점에 예약이 확정되며, 잔금은 이벤트 진행 7일 전까지 납부해 주시면 됩니다.</div></div>
       </div>
-
-      <!-- Admin Dashboard (hidden initially) -->
-      <div id="adminDashboard" style="display: none;" class="fade-in">
-
-        <!-- Stats Cards -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
-          <div class="card" style="text-align: center; padding: 24px;">
-            <div style="font-size: 32px; font-weight: 800; color: var(--primary);" id="statTotal">0</div>
-            <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">총 신청</div>
-          </div>
-          <div class="card" style="text-align: center; padding: 24px;">
-            <div style="font-size: 32px; font-weight: 800; color: #F59E0B;" id="statPending">0</div>
-            <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">대기중</div>
-          </div>
-          <div class="card" style="text-align: center; padding: 24px;">
-            <div style="font-size: 32px; font-weight: 800; color: #10B981;" id="statConfirmed">0</div>
-            <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">확정</div>
-          </div>
-          <div class="card" style="text-align: center; padding: 24px;">
-            <div style="font-size: 32px; font-weight: 800; color: #EF4444;" id="statCancelled">0</div>
-            <div style="font-size: 14px; color: #6B7280; margin-top: 4px;">취소</div>
-          </div>
-        </div>
-
-        <!-- Filter Tabs -->
-        <div style="display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 2px solid #E5E7EB;">
-          <div class="tab active" id="tabAll" onclick="filterBookings(this, 'all')">전체 (0)</div>
-          <div class="tab" id="tabPending" onclick="filterBookings(this, 'pending')">대기중 (0)</div>
-          <div class="tab" id="tabConfirmed" onclick="filterBookings(this, 'confirmed')">확정 (0)</div>
-          <div class="tab" id="tabCancelled" onclick="filterBookings(this, 'cancelled')">취소 (0)</div>
-        </div>
-
-        <!-- Bookings Table -->
-        <div style="background: white; border-radius: 16px; overflow: hidden; border: 1px solid #f0f0f0;">
-          <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-            <thead>
-              <tr style="background: #F9FAFB; text-align: left;">
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">신청일</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">이벤트 유형</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">신청자</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">연락처</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">인원</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">지역</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">상태</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">결제</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">관리</th>
-              </tr>
-            </thead>
-            <tbody id="bookingsTableBody">
-            </tbody>
-          </table>
-        </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><h4>환불 정책이 어떻게 되나요?</h4><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">이벤트 <strong>15일 전까지</strong> 취소 시 계약금 전액 환불. <strong>14일 이내</strong> 취소 시 계약금은 환불되지 않습니다. 당사 사정으로 진행 불가 시 전액 환불됩니다. <a href="javascript:void(0)" onclick="openRefund()" style="color:var(--accent); text-decoration:underline;">전체 환불 정책 보기</a></div></div>
       </div>
-
-      <!-- Consult Inquiries Section -->
-      <div style="margin-top: 48px;">
-        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 20px;">💬 상담 문의 (<span id="consultCount">0</span>건)</h3>
-        <div style="background: white; border-radius: 16px; overflow: hidden; border: 1px solid #f0f0f0;">
-          <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-            <thead>
-              <tr style="background: #F9FAFB; text-align: left;">
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">접수일</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">유형</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">이름</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">연락처</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">문의 내용</th>
-                <th style="padding: 14px 16px; font-weight: 600; color: #6B7280;">관리</th>
-              </tr>
-            </thead>
-            <tbody id="consultTableBody">
-            </tbody>
-          </table>
-        </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><h4>일정 변경이 가능한가요?</h4><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">이벤트 15일 전까지 1회에 한해 일정 변경이 가능합니다. 15일 이내의 일정 변경은 취소 후 재예약으로 처리되며, 위 환불 규정이 적용됩니다.</div></div>
       </div>
-
-      <!-- Booking Detail Modal -->
-      <div id="bookingModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center;">
-        <div style="background: white; border-radius: 20px; padding: 32px; max-width: 560px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative;" class="fade-in">
-          <button onclick="closeModal()" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 20px; cursor: pointer; color: #9CA3AF;">✕</button>
-          <h3 style="font-size: 22px; margin-bottom: 20px;" id="modalTitle">예약 상세</h3>
-          <div id="modalContent"></div>
-          <div style="display: flex; gap: 10px; margin-top: 24px;" id="modalActions"></div>
-        </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><h4>서울 외 지역도 가능한가요?</h4><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">기본적으로 서울 3개 권역(서울역·시청권 / 강남·서초권 / 광화문·DDP권)을 추천드리지만, 기타 지역 행사도 진행 가능합니다. 예약 시 '기타 지역'을 선택하시고 추가 요청사항에 희망 지역을 적어주세요.</div></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><h4>견적은 어떻게 산정되나요?</h4><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Level 1은 건별 협의, Level 2는 20명 기준 150만원부터 시작하며 인원·규모에 따라 조정됩니다. Level 3은 포럼 전체 기획 비용으로 맞춤 견적이며 무료 상담 후 산출됩니다.</div></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CTA Section -->
-  <section class="gradient-bg" style="padding: 60px 0; text-align: center;">
-    <h2 style="font-size: 32px; font-weight: 800; color: white; margin-bottom: 16px;">지금 바로 이벤트를 기획해 보세요</h2>
-    <p style="font-size: 17px; color: rgba(255,255,255,0.8); margin-bottom: 28px;">전문가 이벤트 대행, 3Stripe가 함께합니다</p>
-    <a href="javascript:void(0)" onclick="openConsultModal()" class="btn-primary" style="background: white; color: var(--primary); font-size: 17px;">무료 상담 신청하기 →</a>
-  </section>
+</main>
 
-  <!-- Consult Modal -->
-  <div id="consultModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center;">
-    <div style="background: white; border-radius: 20px; padding: 32px; max-width: 480px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative;" class="fade-in">
-      <button onclick="closeConsultModal()" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 20px; cursor: pointer; color: #9CA3AF;">✕</button>
-      <div style="text-align: center; margin-bottom: 24px;">
-        <div style="width: 56px; height: 56px; background: var(--primary-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px;">💬</div>
-        <h3 style="font-size: 22px; font-weight: 700;">무료 상담 신청</h3>
-        <p style="font-size: 14px; color: #9CA3AF; margin-top: 6px;">궁금한 점을 남겨주시면 빠르게 답변드리겠습니다</p>
+<!-- CTA -->
+<section class="cta-block">
+  <div class="container">
+    <h2>LET'S MAKE<br>IT REAL.</h2>
+    <p>3STRIPE EVENT가 당신의 이벤트를 결과로 만듭니다.</p>
+    <a href="javascript:void(0)" onclick="openConsultModal()" class="btn btn-lg">무료 상담 신청 →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">3STRIPE<span class="dot">.</span>EVENT</div>
+        <p style="font-family:'Space Grotesk',monospace; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-dim); margin-top:24px;">Professional Event Operation / Seoul · 2026</p>
       </div>
-      <div id="consultForm">
-        <input type="text" id="consultName" placeholder="이름 *" style="margin-bottom: 12px;">
-        <input type="email" id="consultEmail" placeholder="이메일 *" style="margin-bottom: 12px;">
-        <input type="tel" id="consultPhone" placeholder="전화번호 *" style="margin-bottom: 12px;">
-        <input type="text" id="consultCompany" placeholder="회사/소속 (선택)" style="margin-bottom: 12px;">
-        <select id="consultCategory" style="margin-bottom: 12px; width: 100%; padding: 12px 16px; border: 2px solid #E5E7EB; border-radius: 10px; font-size: 15px; font-family: 'Paperlogy', sans-serif; color: #374151; background: white;">
+      <div class="footer-info">
+        <strong>3Stripe Venture Studio</strong><br>
+        대표 배종원 | 사업자 703-87-03354<br>
+        서울 영등포구 63로 32, 813호 (여의도동, 콤비빌딩)<br>
+        TEL <strong>02-6925-2511</strong> · EMAIL <strong>3stripe@3svs.com</strong>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 3Stripe Venture Studio.</span>
+      <span>
+        <a href="javascript:void(0)" onclick="openRefund()">Terms & Refund Policy</a>
+        &nbsp;·&nbsp;
+        <a href="https://3svs.com" target="_blank" rel="noopener">3svs.com</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Consult Modal -->
+<div id="consultModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="consultTitle">
+  <div class="modal-inner" style="position:relative;">
+    <button class="modal-close" onclick="closeConsultModal()" aria-label="닫기">✕</button>
+    <h3 id="consultTitle">무료 상담<br>신청.</h3>
+    <p class="dim" style="font-size:14px; margin-bottom:28px;">궁금하신 점을 남겨주시면 24시간 이내에 답변드립니다.</p>
+    <div id="consultForm">
+      <div class="field" style="margin-bottom:14px;"><input type="text" id="consultName" placeholder="이름 *" autocomplete="name"></div>
+      <div class="field" style="margin-bottom:14px;"><input type="email" id="consultEmail" placeholder="이메일 *" autocomplete="email"></div>
+      <div class="field" style="margin-bottom:14px;"><input type="tel" id="consultPhone" placeholder="전화번호 *" autocomplete="tel"></div>
+      <div class="field" style="margin-bottom:14px;"><input type="text" id="consultCompany" placeholder="회사/소속 (선택)" autocomplete="organization"></div>
+      <div class="field" style="margin-bottom:14px;">
+        <select id="consultCategory">
           <option value="">문의 유형 선택</option>
           <option value="견적 문의">견적 문의</option>
           <option value="서비스 상세 안내">서비스 상세 안내</option>
@@ -677,722 +896,270 @@
           <option value="제휴/협업 문의">제휴/협업 문의</option>
           <option value="기타">기타</option>
         </select>
-        <textarea id="consultMessage" placeholder="문의 내용을 자유롭게 작성해 주세요 *" rows="4" style="margin-bottom: 16px; resize: vertical;"></textarea>
-        <button class="btn-primary" onclick="submitConsult()" style="width: 100%; padding: 14px;">상담 신청하기</button>
       </div>
-      <div id="consultComplete" style="display: none; text-align: center; padding: 20px 0;">
-        <div style="width: 64px; height: 64px; background: #10B981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 28px; color: white;">✓</div>
-        <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">상담 신청이 접수되었습니다</h3>
-        <p style="font-size: 14px; color: #6B7280;">빠른 시일 내에 연락드리겠습니다.</p>
-        <button class="btn-outline" onclick="closeConsultModal()" style="margin-top: 20px;">닫기</button>
-      </div>
+      <div class="field" style="margin-bottom:24px;"><textarea id="consultMessage" rows="4" placeholder="문의 내용을 자유롭게 작성해 주세요 *"></textarea></div>
+      <button class="btn btn-accent" onclick="submitConsult()" style="width:100%; justify-content:center;">상담 신청하기 →</button>
+    </div>
+    <div id="consultComplete" style="display:none; text-align:center; padding:20px 0;">
+      <div class="complete-mark">✓</div>
+      <h3>SUBMITTED.</h3>
+      <p class="dim" style="font-size:14px; margin-bottom:24px;">상담 신청이 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.</p>
+      <button class="btn btn-outline" onclick="closeConsultModal()">닫기</button>
     </div>
   </div>
+</div>
 
-  <!-- Refund Policy Modal -->
-  <div id="refundModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center;">
-    <div style="background: white; border-radius: 20px; padding: 36px; max-width: 640px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative;" class="fade-in">
-      <button onclick="document.getElementById('refundModal').style.display='none'" style="position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 20px; cursor: pointer; color: #9CA3AF;">✕</button>
-      <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 24px;">이용약관 및 환불·취소 정책</h3>
-      <div style="font-size: 15px; line-height: 1.8; color: #374151;">
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">1. 서비스 안내</p>
-        <p style="margin-bottom: 8px;">본 서비스는 기업·단체 대상 이벤트 대행 서비스(세미나, 포럼, 컨퍼런스, 강연 등 기획·운영)를 제공합니다.</p>
-        <p style="margin-bottom: 16px;">서비스 최대 제공기간: 결제일로부터 <strong>최대 3개월</strong> 이내 이벤트 진행 완료</p>
-
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">2. 결제 및 계약금 안내</p>
-        <p style="margin-bottom: 8px;">예약 확정을 위해 총 서비스 비용의 <strong>10%</strong>를 계약금으로 납부해 주셔야 합니다.</p>
-        <p style="margin-bottom: 8px;">계약금 납부가 완료된 시점에 예약이 확정됩니다.</p>
-        <p style="margin-bottom: 16px;">잔금은 이벤트 진행 7일 전까지 납부해 주셔야 합니다.</p>
-
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">3. 환불 규정</p>
-        <p style="margin-bottom: 8px;">가. <strong>이벤트 15일 전까지</strong> 취소 요청 시: 계약금 전액 환불</p>
-        <p style="margin-bottom: 8px;">나. <strong>이벤트 14일 이내</strong> 취소 요청 시: 계약금 환불 불가</p>
-        <p style="margin-bottom: 16px;">다. 당사(3Stripe Venture Studio) 사정으로 이벤트 진행이 불가한 경우: 계약금 전액 환불</p>
-
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">4. 환불 절차 및 처리 기간</p>
-        <p style="margin-bottom: 8px;">취소·환불 요청은 이메일(<strong>3stripe@3svs.com</strong>) 또는 전화(<strong>02-6925-2511</strong>)로 접수해 주시기 바랍니다.</p>
-        <p style="margin-bottom: 8px;">· 신용카드 결제: 취소 요청일로부터 영업일 기준 <strong>3~5일</strong> 이내 카드사 승인 취소</p>
-        <p style="margin-bottom: 8px;">· 계좌이체/가상계좌 결제: 취소 요청일로부터 영업일 기준 <strong>5~7일</strong> 이내 환불 계좌로 입금</p>
-        <p style="margin-bottom: 16px;">· 환불은 원결제 수단으로 처리되며, 부분 환불이 필요한 경우 별도 협의합니다.</p>
-
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">5. 일정 변경</p>
-        <p style="margin-bottom: 16px;">이벤트 15일 전까지 1회에 한해 일정 변경이 가능합니다. 15일 이내의 일정 변경은 취소 후 재예약으로 처리되며, 위 환불 규정이 적용됩니다.</p>
-
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">6. 판매자 정보</p>
-        <p style="margin-bottom: 8px;">상호명: 3Stripe Venture Studio | 대표: 배종원</p>
-        <p style="margin-bottom: 8px;">사업자등록번호: 703-87-03354</p>
-        <p style="margin-bottom: 8px;">주소: 서울시 영등포구 63로32(여의도동, 콤비빌딩) 813호</p>
-        <p style="margin-bottom: 16px;">전화: 02-6925-2511 | 이메일: 3stripe@3svs.com</p>
-
-        <p style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">7. 기타</p>
-        <p style="margin-bottom: 8px;">본 이용약관 및 환불 정책은 사전 고지 후 변경될 수 있으며, 변경된 정책은 변경 이후 신규 예약 건부터 적용됩니다.</p>
-        <p>구매자는 결제 전 본 정책을 확인한 것으로 간주합니다.</p>
-      </div>
-      <div style="text-align: center; margin-top: 24px;">
-        <button class="btn-outline" onclick="document.getElementById('refundModal').style.display='none'" style="padding: 12px 32px;">닫기</button>
-      </div>
+<!-- Refund Modal -->
+<div id="refundModal" class="modal modal-large" role="dialog" aria-modal="true">
+  <div class="modal-inner" style="position:relative;">
+    <button class="modal-close" onclick="closeRefund()" aria-label="닫기">✕</button>
+    <h3>이용약관 및<br>환불 정책.</h3>
+    <div class="modal-section">
+      <h4>1. Service Overview</h4>
+      <p>본 서비스는 기업·단체 대상 이벤트 대행 서비스(세미나, 포럼, 컨퍼런스, 강연 등 기획·운영)를 제공합니다.</p>
+      <p>서비스 최대 제공기간: 결제일로부터 <strong>최대 3개월</strong> 이내 이벤트 진행 완료</p>
+    </div>
+    <div class="modal-section">
+      <h4>2. 결제 및 계약금</h4>
+      <p>예약 확정을 위해 총 서비스 비용의 <strong>10%</strong>를 계약금으로 납부해 주셔야 합니다.</p>
+      <p>계약금 납부가 완료된 시점에 예약이 확정됩니다.</p>
+      <p>잔금은 이벤트 진행 7일 전까지 납부해 주셔야 합니다.</p>
+    </div>
+    <div class="modal-section">
+      <h4>3. 환불 규정</h4>
+      <p>가. <strong>이벤트 15일 전까지</strong> 취소 요청 시: 계약금 전액 환불</p>
+      <p>나. <strong>이벤트 14일 이내</strong> 취소 요청 시: 계약금 환불 불가</p>
+      <p>다. 당사 사정으로 진행이 불가한 경우: 계약금 전액 환불</p>
+    </div>
+    <div class="modal-section">
+      <h4>4. 환불 절차 및 처리 기간</h4>
+      <p>취소·환불 요청: 이메일 <strong>3stripe@3svs.com</strong> 또는 전화 <strong>02-6925-2511</strong></p>
+      <p>· 신용카드: 영업일 기준 3~5일 이내 카드사 승인 취소</p>
+      <p>· 계좌이체/가상계좌: 영업일 기준 5~7일 이내 환불 계좌 입금</p>
+    </div>
+    <div class="modal-section">
+      <h4>5. 일정 변경</h4>
+      <p>이벤트 15일 전까지 1회에 한해 일정 변경이 가능합니다. 15일 이내 일정 변경은 취소 후 재예약 처리됩니다.</p>
+    </div>
+    <div class="modal-section">
+      <h4>6. 판매자 정보</h4>
+      <p>상호: 3Stripe Venture Studio | 대표: 배종원</p>
+      <p>사업자등록번호: 703-87-03354</p>
+      <p>주소: 서울시 영등포구 63로 32(여의도동, 콤비빌딩) 813호</p>
+      <p>전화: 02-6925-2511 | 이메일: 3stripe@3svs.com</p>
+    </div>
+    <div style="text-align:right; margin-top:24px;">
+      <button class="btn btn-outline" onclick="closeRefund()">닫기</button>
     </div>
   </div>
+</div>
 
-  <!-- Footer -->
-  <footer style="background: var(--dark); color: white; padding: 48px 0;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px;">
-        <div>
-          <div id="footerLogo" style="display: inline-block; margin-bottom: 12px; cursor: default; padding: 8px 0;">
-            <span class="logo-text" style="color: white; pointer-events: none;">3Stripe Venture Studio</span>
-          </div>
-          <p style="font-size: 14px; color: #9CA3AF; margin-bottom: 4px;">전문가 이벤트 대행 풀서비스 | Powered by K-EnterTech Hub</p>
-          <p style="font-size: 13px; color: #6B7280; line-height: 1.7; margin-top: 12px;">
-            상호명: 3Stripe Venture Studio | 대표: 배종원<br>
-            사업자등록번호: 703-87-03354<br>
-            주소: 서울시 영등포구 63로32(여의도동, 콤비빌딩) 813호<br>
-            전화: 02-6925-2511 | 이메일: 3stripe@3svs.com
-          </p>
-        </div>
-        <div style="text-align: right; font-size: 14px; color: #9CA3AF;">
-          <p style="margin-bottom: 8px;">Knowledge Full-Service · Insight Marketing · Forum Full-Package</p>
-          <a href="javascript:void(0)" onclick="document.getElementById('refundModal').style.display='flex'" style="color: #9CA3AF; text-decoration: underline; font-size: 13px;">이용약관 및 환불·취소 정책</a>
-        </div>
-      </div>
-      <div style="border-top: 1px solid #374151; margin-top: 24px; padding-top: 16px; font-size: 12px; color: #6B7280; text-align: center;">
-        © 2026 3Stripe Venture Studio. All rights reserved.
-      </div>
-    </div>
-  </footer>
+<!-- External Scripts (defer for performance) -->
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-  <script>
-    // Supabase Configuration
-    const SUPABASE_URL = 'https://bnvdgrmnnsyvrvtsnejw.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJudmRncm1ubnN5dnJ2dHNuZWp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MDY1NzMsImV4cCI6MjA5MTQ4MjU3M30.2bZaYczol6mpMjvZOOtsYsr9vDX6BpoXzrkKcNCcai8';
-    let db = null;
+<script>
+// Wait for libs
+window.addEventListener('DOMContentLoaded', function(){
+  // === Supabase ===
+  const SUPABASE_URL = 'https://bnvdgrmnnsyvrvtsnejw.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJudmRncm1ubnN5dnJ2dHNuZWp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MDY1NzMsImV4cCI6MjA5MTQ4MjU3M30.2bZaYczol6mpMjvZOOtsYsr9vDX6BpoXzrkKcNCcai8';
+  window._db = null;
+  function initSupabase(){
+    if (window.supabase && window.supabase.createClient && !window._db) {
+      try { window._db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
+      catch(e){ console.warn('Supabase init failed:', e); }
+    }
+  }
+  initSupabase();
+  setTimeout(initSupabase, 500);
+  setTimeout(initSupabase, 1500);
+});
+
+// === State ===
+let formData = { type:'', date:'', time:'', count:'', region:'', level:'' };
+let currentStep = 1;
+const _today = new Date();
+let calYear = _today.getFullYear();
+let calMonth = _today.getMonth();
+
+// === Calendar ===
+function renderCalendar(){
+  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const cm = document.getElementById('calendarMonth');
+  if (cm) cm.textContent = calYear + '년 ' + months[calMonth];
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date();
+  const todayKey = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+  let html = '';
+  for (let i=0; i<firstDay; i++) html += '<span></span>';
+  for (let d=1; d<=daysInMonth; d++) {
+    const dateObj = new Date(calYear, calMonth, d);
+    const isPast = dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const dateStr = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    const isSelected = formData.date === dateStr;
+    const isToday = dateStr === todayKey;
+    let cls = 'calendar-day';
+    if (isPast) cls += ' past';
+    if (isSelected) cls += ' selected';
+    if (isToday) cls += ' today';
+    if (isPast) html += '<span class="'+cls+'">'+d+'</span>';
+    else html += '<span class="'+cls+'" onclick="selectDate(\''+dateStr+'\')">'+d+'</span>';
+  }
+  const cd = document.getElementById('calendarDays');
+  if (cd) cd.innerHTML = html;
+}
+function changeMonth(dir){ calMonth += dir; if (calMonth>11){calMonth=0;calYear++;} if (calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
+function selectDate(dateStr){ formData.date = dateStr; renderCalendar(); }
+
+// === Step selections ===
+function selectType(el, type){ formData.type = type; document.querySelectorAll('#step1 .option').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
+function selectTime(el, time){ formData.time = time; document.querySelectorAll('#step2 .pill').forEach(c => { if (c.textContent.indexOf('명') === -1) c.classList.remove('selected'); }); el.classList.add('selected'); }
+function selectCount(el, count){ formData.count = count; el.parentElement.querySelectorAll('.pill').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
+function selectRegion(el, region){ formData.region = region; document.querySelectorAll('#step3 .option-grid-4 .pill').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
+function selectLevel(el, level){ formData.level = level; document.querySelectorAll('#step3 .option').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
+
+// === Navigation ===
+function goStep(step){
+  for (let i=1; i<=4; i++){ const el = document.getElementById('step'+i); if (el) el.style.display = 'none'; }
+  const cmp = document.getElementById('stepComplete'); if (cmp) cmp.style.display = 'none';
+  const target = document.getElementById('step'+step);
+  if (target){ target.style.display = 'block'; target.classList.remove('fade-in'); void target.offsetWidth; target.classList.add('fade-in'); }
+  // Progress
+  const pb = document.getElementById('progressBar'); if (pb) pb.setAttribute('data-step', step);
+  const pc = document.getElementById('progressCur'); if (pc) pc.textContent = String(step).padStart(2,'0');
+  const labels = ['EVENT TYPE','DATE & TIME','REGION & LEVEL','YOUR INFO'];
+  const ps = document.getElementById('progressStep'); if (ps) ps.textContent = labels[step-1] || '';
+  // Summary update on step 4
+  if (step === 4){
+    document.getElementById('sumType').textContent = formData.type || '—';
+    document.getElementById('sumDate').textContent = formData.date || '—';
+    document.getElementById('sumTime').textContent = formData.time || '—';
+    document.getElementById('sumCount').textContent = formData.count || '—';
+    document.getElementById('sumRegion').textContent = formData.region || '—';
+    document.getElementById('sumLevel').textContent = formData.level || '—';
+  }
+  currentStep = step;
+  if (step === 2) renderCalendar();
+  // Scroll to top of booking shell on mobile
+  if (window.innerWidth < 768) {
+    const shell = document.querySelector('.booking-shell');
+    if (shell) shell.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+async function submitBooking(){
+  const name = document.getElementById('inputName').value.trim();
+  const email = document.getElementById('inputEmail').value.trim();
+  const phone = document.getElementById('inputPhone').value.trim();
+  const company = document.getElementById('inputCompany').value.trim();
+  const message = document.getElementById('inputMessage').value.trim();
+  if (!name || !email || !phone){ alert('이름, 이메일, 전화번호는 필수입니다.'); return; }
+  const ref_number = 'KE-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + String(Math.floor(Math.random()*999)+1).padStart(3,'0');
+  try {
+    if (window._db){
+      const { error } = await window._db.from('bookings').insert([{
+        ref_number, event_type: formData.type, preferred_date: formData.date,
+        preferred_time_slot: formData.time, attendee_count: formData.count,
+        region: formData.region, service_level: formData.level,
+        name, email, phone, company, message,
+        status:'pending', payment_status:'unpaid'
+      }]);
+      if (error) throw error;
+    }
+    // EmailJS
     try {
-      if (window.supabase && window.supabase.createClient) {
-        db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      if (window.emailjs){
+        window.emailjs.init('Bj0xkZ_phpbe7G-c6');
+        await window.emailjs.send('service_9slrmvj','template_j4l7kkm',{
+          ref_number, event_type: formData.type, date: formData.date, time: formData.time,
+          name, email, phone, company: company||'-', count: formData.count,
+          region: formData.region, level: formData.level, message: message||'-'
+        });
       }
-    } catch(e) {
-      console.warn('Supabase init failed:', e);
+    } catch(e){ console.warn('이메일 발송 실패:', e); }
+    document.getElementById('bookingRef').textContent = ref_number;
+    for (let i=1; i<=4; i++){ const el = document.getElementById('step'+i); if (el) el.style.display = 'none'; }
+    document.querySelector('.booking-progress').style.display = 'none';
+    const complete = document.getElementById('stepComplete');
+    complete.style.display = 'block';
+    complete.classList.remove('fade-in'); void complete.offsetWidth; complete.classList.add('fade-in');
+  } catch(err){ alert('예약 저장 중 오류: ' + err.message); }
+}
+
+function resetForm(){
+  formData = { type:'', date:'', time:'', count:'', region:'', level:'' };
+  document.querySelector('.booking-progress').style.display = 'flex';
+  document.querySelectorAll('.option, .pill').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('input, textarea').forEach(el => el.value = '');
+  goStep(1);
+}
+
+// === Modals ===
+function openConsultModal(){ document.getElementById('consultForm').style.display='block'; document.getElementById('consultComplete').style.display='none'; document.getElementById('consultModal').classList.add('open'); }
+function closeConsultModal(){
+  document.getElementById('consultModal').classList.remove('open');
+  ['consultName','consultEmail','consultPhone','consultCompany','consultCategory','consultMessage'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'SELECT') el.selectedIndex = 0;
+    else el.value = '';
+  });
+}
+function openRefund(){ document.getElementById('refundModal').classList.add('open'); }
+function closeRefund(){ document.getElementById('refundModal').classList.remove('open'); }
+
+// Close modal on backdrop click
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', function(e){ if (e.target === m) m.classList.remove('open'); });
+});
+
+// Close modal on ESC
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open'));
+});
+
+async function submitConsult(){
+  const name = document.getElementById('consultName').value.trim();
+  const email = document.getElementById('consultEmail').value.trim();
+  const phone = document.getElementById('consultPhone').value.trim();
+  const company = document.getElementById('consultCompany').value.trim();
+  const category = document.getElementById('consultCategory').value;
+  const message = document.getElementById('consultMessage').value.trim();
+  if (!name || !email || !phone || !message){ alert('이름, 이메일, 전화번호, 문의 내용은 필수입니다.'); return; }
+  try {
+    if (window._db){
+      const { error } = await window._db.from('inquiries').insert([{
+        name, email, phone, company: company||null, category: category||'기타', message
+      }]);
+      if (error) throw error;
     }
+    document.getElementById('consultForm').style.display = 'none';
+    document.getElementById('consultComplete').style.display = 'block';
+  } catch(err){
+    console.warn('문의 저장 실패:', err);
+    document.getElementById('consultForm').style.display = 'none';
+    document.getElementById('consultComplete').style.display = 'block';
+  }
+}
 
-    // State
-    let formData = { type: '', date: '', time: '', count: '', region: '', level: '' };
-    let currentStep = 1;
-    let calYear = 2026, calMonth = 4; // May 2026 (0-indexed: 4)
+// === FAQ ===
+function toggleFaq(item){
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
 
-    // Calendar
-    function renderCalendar() {
-      const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-      document.getElementById('calendarMonth').textContent = calYear + '년 ' + months[calMonth];
-      const firstDay = new Date(calYear, calMonth, 1).getDay();
-      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-      const today = new Date();
-      let html = '';
-      for (let i = 0; i < firstDay; i++) html += '<span></span>';
-      for (let d = 1; d <= daysInMonth; d++) {
-        const dateObj = new Date(calYear, calMonth, d);
-        const isPast = dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-        const isSelected = formData.date === dateStr;
-        if (isPast) {
-          html += `<span style="font-size:13px;padding:10px;color:#D1D5DB;cursor:not-allowed;">${d}</span>`;
-        } else if (isSelected) {
-          html += `<span style="font-size:13px;padding:10px;background:#0069FF;color:white;border-radius:8px;font-weight:600;cursor:pointer;" onclick="selectDate('${dateStr}')">${d}</span>`;
-        } else {
-          html += `<span style="font-size:13px;padding:10px;cursor:pointer;border-radius:8px;" onclick="selectDate('${dateStr}')" onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background=''">${d}</span>`;
-        }
-      }
-      document.getElementById('calendarDays').innerHTML = html;
-    }
-    function changeMonth(dir) { calMonth += dir; if (calMonth > 11) { calMonth = 0; calYear++; } if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
-    function selectDate(dateStr) { formData.date = dateStr; renderCalendar(); }
+// === Admin route redirect ===
+// /admin or ?admin or #admin all redirect to the dedicated admin page.
+if (location.search.includes('admin') || location.hash === '#admin'){
+  location.replace('/admin');
+}
 
-    // Selections
-    function selectType(el, type) { formData.type = type; document.querySelectorAll('#step1 .step-card').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
-    function selectTime(el, time) { formData.time = time; document.querySelectorAll('#step2 .time-pill').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
-    function selectCount(el, count) { formData.count = count; el.parentElement.querySelectorAll('.time-pill').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
-    function selectRegion(el, region) { formData.region = region; document.querySelectorAll('.region-card').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
-    function selectLevel(el, level) { formData.level = level; document.querySelectorAll('#step3 .step-card').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); }
+// === Init ===
+renderCalendar();
+</script>
 
-    // Navigation
-    function goStep(step) {
-      for (let i = 1; i <= 4; i++) { const el = document.getElementById('step' + i); if (el) el.style.display = 'none'; }
-      document.getElementById('stepComplete').style.display = 'none';
-      const target = document.getElementById('step' + step);
-      if (target) { target.style.display = 'block'; target.classList.remove('fade-in'); void target.offsetWidth; target.classList.add('fade-in'); }
-      // Update indicators
-      for (let i = 1; i <= 4; i++) {
-        const dot = document.getElementById('dot' + i);
-        dot.className = 'step-dot ' + (i < step ? 'done' : i === step ? 'active' : 'pending');
-        dot.textContent = i < step ? '✓' : i;
-        if (i < 4) { document.getElementById('line' + i).className = 'step-line' + (i < step ? ' done' : ''); }
-      }
-      // Update summary on step 4
-      if (step === 4) {
-        document.getElementById('sumType').textContent = formData.type || '-';
-        document.getElementById('sumDate').textContent = formData.date || '-';
-        document.getElementById('sumTime').textContent = formData.time || '-';
-        document.getElementById('sumCount').textContent = formData.count || '-';
-        document.getElementById('sumRegion').textContent = formData.region || '-';
-        document.getElementById('sumLevel').textContent = formData.level || '-';
-      }
-      currentStep = step;
-      if (step === 2) renderCalendar();
-    }
-
-    async function submitBooking() {
-      const name = document.getElementById('inputName').value;
-      const email = document.getElementById('inputEmail').value;
-      const phone = document.getElementById('inputPhone').value;
-      const company = document.getElementById('inputCompany').value;
-      const message = document.getElementById('inputMessage').value;
-
-      if (!name || !email || !phone) { alert('이름, 이메일, 전화번호는 필수입니다.'); return; }
-
-      // Generate reference
-      const ref_number = 'KE-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + String(Math.floor(Math.random()*999)+1).padStart(3,'0');
-
-      try {
-        // Insert into Supabase if available
-        if (db) {
-          const { data, error } = await db.from('bookings').insert([{
-            ref_number: ref_number,
-            event_type: formData.type,
-            preferred_date: formData.date,
-            preferred_time_slot: formData.time,
-            attendee_count: formData.count,
-            region: formData.region,
-            service_level: formData.level,
-            name: name,
-            email: email,
-            phone: phone,
-            company: company,
-            message: message,
-            status: 'pending',
-            payment_status: 'unpaid'
-          }]);
-          if (error) throw error;
-        }
-
-        // Send email notification via EmailJS
-        try {
-          emailjs.init('Bj0xkZ_phpbe7G-c6');
-          await emailjs.send('service_9slrmvj', 'template_j4l7kkm', {
-            ref_number: ref_number,
-            event_type: formData.type,
-            date: formData.date,
-            time: formData.time,
-            name: name,
-            email: email,
-            phone: phone,
-            company: company || '-',
-            count: formData.count,
-            region: formData.region,
-            level: formData.level,
-            message: message || '-'
-          });
-        } catch (emailErr) {
-          console.warn('이메일 발송 실패:', emailErr);
-        }
-
-        // Show completion
-        document.getElementById('bookingRef').textContent = ref_number;
-        for (let i = 1; i <= 4; i++) { const el = document.getElementById('step' + i); if (el) el.style.display = 'none'; }
-        document.getElementById('stepIndicator').style.display = 'none';
-        const complete = document.getElementById('stepComplete');
-        complete.style.display = 'block';
-        complete.classList.remove('fade-in'); void complete.offsetWidth; complete.classList.add('fade-in');
-      } catch (error) {
-        alert('예약 저장 중 오류가 발생했습니다: ' + error.message);
-      }
-    }
-
-    function resetForm() {
-      formData = { type: '', date: '', time: '', count: '', region: '', level: '' };
-      document.getElementById('stepIndicator').style.display = 'flex';
-      document.querySelectorAll('.step-card, .time-pill, .region-card').forEach(c => c.classList.remove('selected'));
-      document.querySelectorAll('input, textarea').forEach(el => el.value = '');
-      goStep(1);
-    }
-
-    // Hidden admin door - 5 clicks on footer logo
-    let footerClicks = 0;
-    let footerClickTimer = null;
-    document.getElementById('footerLogo').addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      footerClicks++;
-      clearTimeout(footerClickTimer);
-      footerClickTimer = setTimeout(function() { footerClicks = 0; }, 3000);
-      if (footerClicks >= 5) {
-        footerClicks = 0;
-        var adminSection = document.getElementById('admin-demo');
-        adminSection.style.display = 'block';
-        setTimeout(function() {
-          adminSection.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      }
-    });
-
-    // Admin access via URL: ?admin or #admin
-    function openAdmin() {
-      var adminSection = document.getElementById('admin-demo');
-      adminSection.style.display = 'block';
-      setTimeout(function() { adminSection.scrollIntoView({ behavior: 'smooth' }); }, 100);
-    }
-    if (location.search.includes('admin') || location.hash === '#admin') {
-      openAdmin();
-    }
-    window.addEventListener('hashchange', function() {
-      if (location.hash === '#admin') openAdmin();
-    });
-
-    // Init calendar
-    renderCalendar();
-
-    // ===== ADMIN DASHBOARD =====
-    const demoBookings = [
-      { id: 1, ref: 'KE-20260401-001', date: '2026-04-01', event_type: '이민·비자 설명회', name: '김민수', email: 'minsoo@gmail.com', phone: '010-1234-5678', company: 'LA한인회', count: '30~60명', region: '서울역·시청권', level: 'Level 2', time: '오후', message: '미국 이민법 관련 설명회입니다. 통역 가능한지 확인 부탁합니다.', status: 'confirmed', payment: 'paid' },
-      { id: 2, ref: 'KE-20260403-002', date: '2026-04-03', event_type: '전문가 강연·세미나', name: '박서연', email: 'sypark@univ.edu', phone: '010-9876-5432', company: '서울대학교', count: '60~100명', region: '광화문·DDP권', level: 'Level 3', time: '오전', message: 'AI 기술 세미나, 교수 3명 패널 구성 희망', status: 'confirmed', payment: 'paid' },
-      { id: 3, ref: 'KE-20260405-003', date: '2026-04-05', event_type: 'IR 피칭·사업 설명회', name: '이재현', email: 'jh.lee@startup.io', phone: '010-5555-1234', company: '넥스트웨이브', count: '10~30명', region: '강남·서초권', level: 'Level 2', time: '오후', message: 'VC 대상 IR 피칭, 발표자료 디자인도 도와주세요', status: 'confirmed', payment: 'unpaid' },
-      { id: 4, ref: 'KE-20260406-004', date: '2026-04-06', event_type: '교회·종교 초청 강좌', name: '정은혜', email: 'grace@church.org', phone: '010-3333-7777', company: '은혜교회', count: '30~60명', region: '서울역·시청권', level: 'Level 1', time: '오전', message: '세무·법률 강좌, 교인 대상', status: 'confirmed', payment: 'paid' },
-      { id: 5, ref: 'KE-20260407-005', date: '2026-04-07', event_type: '비즈니스 포럼·컨퍼런스', name: '최동욱', email: 'dw.choi@corp.co.kr', phone: '010-8888-4444', company: '한국무역협회', count: '100명 이상', region: '광화문·DDP권', level: 'Level 3', time: '오전', message: '수출 전략 포럼, 동시통역 필요', status: 'pending', payment: 'unpaid' },
-      { id: 6, ref: 'KE-20260408-006', date: '2026-04-08', event_type: '전문가 강연·세미나', name: '한지민', email: 'jimin.han@med.kr', phone: '010-2222-6666', company: '대한의사협회', count: '30~60명', region: '강남·서초권', level: 'Level 2', time: '저녁', message: '의료 AI 세미나', status: 'confirmed', payment: 'paid' },
-      { id: 7, ref: 'KE-20260409-007', date: '2026-04-09', event_type: '이민·비자 설명회', name: '오성민', email: 'sm.oh@law.com', phone: '010-7777-3333', company: '오성민 법률사무소', count: '30~60명', region: '서울역·시청권', level: 'Level 2', time: '오후', message: '캐나다 이민 설명회, 변호사 직접 진행', status: 'pending', payment: 'unpaid' },
-      { id: 8, ref: 'KE-20260409-008', date: '2026-04-09', event_type: 'IR 피칭·사업 설명회', name: '장현우', email: 'hw@venture.kr', phone: '010-4444-8888', company: '블루오션벤처스', count: '10~30명', region: '강남·서초권', level: 'Level 1', time: '오후', message: '', status: 'pending', payment: 'unpaid' },
-      { id: 9, ref: 'KE-20260410-009', date: '2026-04-10', event_type: '전문가 강연·세미나', name: '윤서아', email: 'sa.yoon@design.com', phone: '010-1111-9999', company: '디자인하우스', count: '60~100명', region: '광화문·DDP권', level: 'Level 2', time: '오전', message: 'UX 디자인 트렌드 세미나, 네트워킹 시간 포함 희망', status: 'pending', payment: 'unpaid' },
-      { id: 10, ref: 'KE-20260410-010', date: '2026-04-10', event_type: '교회·종교 초청 강좌', name: '김태영', email: 'ty@mission.org', phone: '010-6666-2222', company: '새생명교회', count: '10~30명', region: '기타 지역', level: 'Level 1', time: '저녁', message: '인천 지역 희망, 이민 상담 강좌', status: 'cancelled', payment: 'unpaid' },
-      { id: 11, ref: 'KE-20260411-011', date: '2026-04-11', event_type: '비즈니스 포럼·컨퍼런스', name: '송재원', email: 'jw.song@fin.co.kr', phone: '010-5555-0000', company: '핀테크협회', count: '60~100명', region: '강남·서초권', level: 'Level 3', time: '오전', message: '핀테크 산업 전망 포럼', status: 'confirmed', payment: 'paid' },
-      { id: 12, ref: 'KE-20260411-012', date: '2026-04-11', event_type: '전문가 강연·세미나', name: '임하늘', email: 'sky@edu.kr', phone: '010-9999-1111', company: '에듀테크랩', count: '30~60명', region: '서울역·시청권', level: 'Level 2', time: '오후', message: 'AI 교육 활용 세미나, 실습 공간 필요', status: 'pending', payment: 'unpaid' },
-    ];
-
-    let currentFilter = 'all';
-    let bookings = [];
-
-    async function adminLogin() {
-      var pw = document.getElementById('adminPw').value;
-      if (pw !== '0814') {
-        alert('비밀번호가 틀렸습니다.');
-        return;
-      }
-      try {
-        // Fetch bookings from Supabase if available
-        if (db) {
-          const { data, error } = await db.from('bookings').select('*').order('created_at', { ascending: false });
-
-          if (error) throw error;
-
-          if (data && data.length > 0) {
-            bookings = data.map(b => ({
-              id: b.id,
-              ref: b.ref_number,
-              event_type: b.event_type,
-              date: b.preferred_date,
-              time: b.preferred_time_slot,
-              count: b.attendee_count,
-              region: b.region,
-              level: b.service_level,
-              name: b.name,
-              email: b.email,
-              phone: b.phone,
-              company: b.company,
-              message: b.message,
-              status: b.status,
-              payment: b.payment_status
-            }));
-          } else {
-            bookings = demoBookings;
-          }
-        } else {
-          // Supabase not available, use demo data
-          bookings = demoBookings;
-        }
-
-        document.getElementById('adminLogin').style.display = 'none';
-        const dash = document.getElementById('adminDashboard');
-        dash.style.display = 'block';
-        dash.classList.remove('fade-in'); void dash.offsetWidth; dash.classList.add('fade-in');
-        updateAdminStats();
-        renderBookingsTable(bookings);
-        loadInquiries();
-      } catch (error) {
-        // Even on error, show dashboard with demo data
-        console.warn('Supabase fetch failed, using demo data:', error);
-        bookings = demoBookings;
-        document.getElementById('adminLogin').style.display = 'none';
-        const dash = document.getElementById('adminDashboard');
-        dash.style.display = 'block';
-        dash.classList.remove('fade-in'); void dash.offsetWidth; dash.classList.add('fade-in');
-        updateAdminStats();
-        renderBookingsTable(bookings);
-        loadInquiries();
-      }
-    }
-
-    function getStatusBadge(status) {
-      const map = {
-        pending: { label: '대기중', bg: '#FEF3C7', color: '#92400E' },
-        confirmed: { label: '확정', bg: '#D1FAE5', color: '#065F46' },
-        cancelled: { label: '취소', bg: '#FEE2E2', color: '#991B1B' }
-      };
-      const s = map[status] || map.pending;
-      return `<span style="background:${s.bg};color:${s.color};padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">${s.label}</span>`;
-    }
-
-    function getPaymentBadge(payment) {
-      if (payment === 'paid') return '<span style="background:#D1FAE5;color:#065F46;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">결제완료</span>';
-      return '<span style="background:#F3F4F6;color:#6B7280;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">미결제</span>';
-    }
-
-    function renderBookingsTable(bookings) {
-      const filtered = currentFilter === 'all' ? bookings : bookings.filter(b => b.status === currentFilter);
-      const tbody = document.getElementById('bookingsTableBody');
-      tbody.innerHTML = filtered.map(b => `
-        <tr style="border-top: 1px solid #F3F4F6; cursor: pointer;" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background='white'" onclick="openBookingDetail(${b.id})">
-          <td style="padding: 14px 16px; font-size: 13px; color: #6B7280;">${b.date}</td>
-          <td style="padding: 14px 16px; font-weight: 500;">${b.event_type}</td>
-          <td style="padding: 14px 16px;">
-            <div style="font-weight: 600;">${b.name}</div>
-            <div style="font-size: 12px; color: #9CA3AF;">${b.company}</div>
-          </td>
-          <td style="padding: 14px 16px; font-size: 13px;">${b.phone}</td>
-          <td style="padding: 14px 16px; font-size: 13px;">${b.count}</td>
-          <td style="padding: 14px 16px; font-size: 13px;">${b.region}</td>
-          <td style="padding: 14px 16px;">${getStatusBadge(b.status)}</td>
-          <td style="padding: 14px 16px;">${getPaymentBadge(b.payment)}</td>
-          <td style="padding: 14px 16px;">
-            <button style="background:none;border:none;color:var(--primary);cursor:pointer;font-weight:600;font-size:13px;font-family:'Paperlogy',sans-serif;">상세 →</button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function filterBookings(el, filter) {
-      currentFilter = filter;
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      el.classList.add('active');
-      renderBookingsTable(bookings);
-    }
-
-    function openBookingDetail(id) {
-      const b = bookings.find(x => x.id === id);
-      if (!b) return;
-      document.getElementById('modalTitle').textContent = b.ref + ' · ' + b.name;
-      document.getElementById('modalContent').innerHTML = `
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 14px;">
-          <div style="background:#F9FAFB;border-radius:10px;padding:14px;">
-            <div style="color:#9CA3AF;font-size:12px;margin-bottom:4px;">이벤트 유형</div>
-            <div style="font-weight:600;">${b.event_type}</div>
-          </div>
-          <div style="background:#F9FAFB;border-radius:10px;padding:14px;">
-            <div style="color:#9CA3AF;font-size:12px;margin-bottom:4px;">희망 일정</div>
-            <div style="font-weight:600;">${b.date} · ${b.time}</div>
-          </div>
-          <div style="background:#F9FAFB;border-radius:10px;padding:14px;">
-            <div style="color:#9CA3AF;font-size:12px;margin-bottom:4px;">참가 인원</div>
-            <div style="font-weight:600;">${b.count}</div>
-          </div>
-          <div style="background:#F9FAFB;border-radius:10px;padding:14px;">
-            <div style="color:#9CA3AF;font-size:12px;margin-bottom:4px;">희망 지역</div>
-            <div style="font-weight:600;">${b.region}</div>
-          </div>
-          <div style="background:#F9FAFB;border-radius:10px;padding:14px;">
-            <div style="color:#9CA3AF;font-size:12px;margin-bottom:4px;">서비스 레벨</div>
-            <div style="font-weight:600;">${b.level}</div>
-          </div>
-          <div style="background:#F9FAFB;border-radius:10px;padding:14px;">
-            <div style="color:#9CA3AF;font-size:12px;margin-bottom:4px;">소속</div>
-            <div style="font-weight:600;">${b.company}</div>
-          </div>
-        </div>
-        <div style="margin-top:16px;background:#F9FAFB;border-radius:10px;padding:14px;font-size:14px;">
-          <div style="color:#9CA3AF;font-size:12px;margin-bottom:4px;">연락처</div>
-          <div style="font-weight:600;">${b.email} · ${b.phone}</div>
-        </div>
-        ${b.message ? `<div style="margin-top:16px;background:#F9FAFB;border-radius:10px;padding:14px;font-size:14px;">
-          <div style="color:#9CA3AF;font-size:12px;margin-bottom:4px;">추가 요청사항</div>
-          <div>${b.message}</div>
-        </div>` : ''}
-        <div style="margin-top:16px;display:flex;gap:12px;">
-          <div>상태: ${getStatusBadge(b.status)}</div>
-          <div>결제: ${getPaymentBadge(b.payment)}</div>
-        </div>
-      `;
-      document.getElementById('modalActions').innerHTML = `
-        ${b.status === 'pending' ? `
-          <button class="btn-primary" style="padding:10px 20px;font-size:14px;" onclick="updateStatus(${b.id},'confirmed')">✓ 예약 확정</button>
-          <button style="background:#EF4444;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="updateStatus(${b.id},'cancelled')">✕ 취소</button>
-        ` : ''}
-        ${b.status === 'confirmed' && b.payment === 'unpaid' ? `
-          <button style="background:#0069FF;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="generatePaymentLink(${b.id})">💳 결제 링크 생성</button>
-          <button style="background:#10B981;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="updatePayment(${b.id})">✓ 수동 결제완료</button>
-        ` : ''}
-        <button style="background:#FF3B30;color:white;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;font-family:'Paperlogy',sans-serif;" onclick="deleteBooking(${b.id})">🗑 삭제</button>
-        <button class="btn-outline" style="padding:10px 20px;font-size:14px;" onclick="closeModal()">닫기</button>
-      `;
-      document.getElementById('bookingModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-      document.getElementById('bookingModal').style.display = 'none';
-    }
-
-    function generatePaymentLink(id) {
-      const b = bookings.find(x => x.id === id);
-      if (!b) return;
-      const amount = prompt('결제 금액을 입력하세요 (숫자만):', '');
-      if (!amount || isNaN(amount) || parseInt(amount) <= 0) {
-        alert('올바른 금액을 입력해주세요.');
-        return;
-      }
-      const params = new URLSearchParams({
-        orderId: b.ref,
-        orderName: encodeURIComponent(b.event_type + ' - ' + b.level),
-        amount: parseInt(amount),
-        customerName: b.name,
-        customerEmail: b.email || '',
-        customerPhone: b.phone ? b.phone.replace(/-/g, '') : ''
-      });
-      const paymentUrl = window.location.origin + '/checkout.html?' + params.toString();
-
-      // 모달에 결제 링크 표시
-      document.getElementById('modalContent').innerHTML = `
-        <div style="background:#EEF2FF;border-radius:12px;padding:20px;margin-bottom:16px;">
-          <p style="font-weight:700;color:#4F46E5;margin-bottom:8px;">💳 결제 링크가 생성되었습니다</p>
-          <p style="font-size:13px;color:#6B7280;margin-bottom:12px;">아래 링크를 고객에게 전달하세요. 금액: <strong>${parseInt(amount).toLocaleString()}원</strong></p>
-          <input type="text" value="${paymentUrl}" id="paymentLinkInput" readonly style="width:100%;padding:10px;border:1px solid #D1D5DB;border-radius:8px;font-size:12px;background:white;margin-bottom:8px;">
-          <button onclick="copyPaymentLink()" style="background:#4F46E5;color:white;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:13px;font-family:'Paperlogy',sans-serif;width:100%;">링크 복사하기</button>
-        </div>
-        <p style="font-size:12px;color:#9CA3AF;">* 테스트 모드에서는 실제 결제가 이루어지지 않습니다.</p>
-      `;
-      document.getElementById('modalActions').innerHTML = `
-        <button class="btn-outline" style="padding:10px 20px;font-size:14px;" onclick="closeModal()">닫기</button>
-      `;
-    }
-
-    function copyPaymentLink() {
-      const input = document.getElementById('paymentLinkInput');
-      input.select();
-      document.execCommand('copy');
-      alert('결제 링크가 복사되었습니다!');
-    }
-
-    async function updateStatus(id, newStatus) {
-      try {
-        if (db) {
-          const { error } = await db.from('bookings').update({ status: newStatus }).eq('id', id);
-          if (error) throw error;
-        }
-        const b = bookings.find(x => x.id === id);
-        if (b) { b.status = newStatus; }
-        updateAdminStats();
-        renderBookingsTable(bookings);
-        closeModal();
-      } catch (error) {
-        // Still update locally even if Supabase fails
-        const b = bookings.find(x => x.id === id);
-        if (b) { b.status = newStatus; }
-        updateAdminStats();
-        renderBookingsTable(bookings);
-        closeModal();
-        console.warn('Supabase update failed:', error);
-      }
-    }
-
-    async function updatePayment(id) {
-      try {
-        if (db) {
-          const { error } = await db.from('bookings').update({ payment_status: 'paid' }).eq('id', id);
-          if (error) throw error;
-        }
-        const b = bookings.find(x => x.id === id);
-        if (b) { b.payment = 'paid'; }
-        updateAdminStats();
-        renderBookingsTable(bookings);
-        closeModal();
-      } catch (error) {
-        const b = bookings.find(x => x.id === id);
-        if (b) { b.payment = 'paid'; }
-        updateAdminStats();
-        renderBookingsTable(bookings);
-        closeModal();
-        console.warn('Supabase payment update failed:', error);
-      }
-    }
-
-    async function refreshBookings() {
-      try {
-        if (!db) { updateAdminStats(); renderBookingsTable(bookings); return; }
-        const { data, error } = await db.from('bookings').select('*').order('created_at', { ascending: false });
-        if (error) throw error;
-        if (data && data.length > 0) {
-          bookings = data.map(b => ({
-            id: b.id, ref: b.ref_number, event_type: b.event_type,
-            date: b.preferred_date, time: b.preferred_time_slot,
-            count: b.attendee_count, region: b.region, level: b.service_level,
-            name: b.name, email: b.email, phone: b.phone,
-            company: b.company, message: b.message,
-            status: b.status, payment: b.payment_status
-          }));
-        }
-        updateAdminStats();
-        renderBookingsTable(bookings);
-      } catch (error) {
-        console.warn('Error refreshing bookings:', error);
-        updateAdminStats();
-        renderBookingsTable(bookings);
-      }
-    }
-
-    async function deleteBooking(id) {
-      if (!confirm('이 예약을 정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.')) return;
-      try {
-        if (db) {
-          const { error } = await db.from('bookings').delete().eq('id', id);
-          if (error) throw error;
-        }
-        bookings = bookings.filter(x => x.id !== id);
-        updateAdminStats();
-        renderBookingsTable(bookings);
-        closeModal();
-      } catch (error) {
-        bookings = bookings.filter(x => x.id !== id);
-        updateAdminStats();
-        renderBookingsTable(bookings);
-        closeModal();
-        console.warn('Supabase delete failed:', error);
-      }
-    }
-
-    function updateAdminStats() {
-      const total = bookings.length;
-      const pending = bookings.filter(b => b.status === 'pending').length;
-      const confirmed = bookings.filter(b => b.status === 'confirmed').length;
-      const cancelled = bookings.filter(b => b.status === 'cancelled').length;
-
-      document.getElementById('statTotal').textContent = total;
-      document.getElementById('statPending').textContent = pending;
-      document.getElementById('statConfirmed').textContent = confirmed;
-      document.getElementById('statCancelled').textContent = cancelled;
-
-      // Update tab counts
-      document.getElementById('tabAll').textContent = '전체 (' + total + ')';
-      document.getElementById('tabPending').textContent = '대기중 (' + pending + ')';
-      document.getElementById('tabConfirmed').textContent = '확정 (' + confirmed + ')';
-      document.getElementById('tabCancelled').textContent = '취소 (' + cancelled + ')';
-    }
-
-    // ===== Consultation Form Functions =====
-    let inquiries = [];
-
-    function openConsultModal() {
-      document.getElementById('consultForm').style.display = 'block';
-      document.getElementById('consultComplete').style.display = 'none';
-      document.getElementById('consultModal').style.display = 'flex';
-    }
-
-    function closeConsultModal() {
-      document.getElementById('consultModal').style.display = 'none';
-      ['consultName','consultEmail','consultPhone','consultCompany','consultCategory','consultMessage'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el.tagName === 'SELECT') el.selectedIndex = 0;
-        else el.value = '';
-      });
-    }
-
-    async function submitConsult() {
-      const name = document.getElementById('consultName').value.trim();
-      const email = document.getElementById('consultEmail').value.trim();
-      const phone = document.getElementById('consultPhone').value.trim();
-      const company = document.getElementById('consultCompany').value.trim();
-      const category = document.getElementById('consultCategory').value;
-      const message = document.getElementById('consultMessage').value.trim();
-
-      if (!name || !email || !phone || !message) {
-        alert('이름, 이메일, 전화번호, 문의 내용은 필수입니다.');
-        return;
-      }
-
-      try {
-        if (db) {
-          const { error } = await db.from('inquiries').insert([{
-            name: name,
-            email: email,
-            phone: phone,
-            company: company || null,
-            category: category || '기타',
-            message: message
-          }]);
-          if (error) throw error;
-        }
-
-        document.getElementById('consultForm').style.display = 'none';
-        document.getElementById('consultComplete').style.display = 'block';
-      } catch (error) {
-        console.warn('문의 저장 실패:', error);
-        document.getElementById('consultForm').style.display = 'none';
-        document.getElementById('consultComplete').style.display = 'block';
-      }
-    }
-
-    async function loadInquiries() {
-      try {
-        if (!db) return;
-        const { data, error } = await db.from('inquiries').select('*').order('created_at', { ascending: false });
-        if (error) throw error;
-        if (data) {
-          inquiries = data;
-          renderInquiriesTable();
-        }
-      } catch (error) {
-        console.warn('문의 로드 실패:', error);
-      }
-    }
-
-    function renderInquiriesTable() {
-      const tbody = document.getElementById('consultTableBody');
-      if (!tbody) return;
-      document.getElementById('consultCount').textContent = inquiries.length;
-      if (inquiries.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="padding:32px;text-align:center;color:#9CA3AF;">접수된 문의가 없습니다</td></tr>';
-        return;
-      }
-      tbody.innerHTML = inquiries.map(q => `
-        <tr style="border-top: 1px solid #F3F4F6;" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background='white'">
-          <td style="padding: 14px 16px; font-size: 13px; color: #6B7280;">${q.created_at ? q.created_at.slice(0,10) : '-'}</td>
-          <td style="padding: 14px 16px; font-size: 13px;"><span style="background:#EEF2FF;color:#4F46E5;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">${q.category || '기타'}</span></td>
-          <td style="padding: 14px 16px;">
-            <div style="font-weight: 600;">${q.name}</div>
-            <div style="font-size: 12px; color: #9CA3AF;">${q.company || ''}</div>
-          </td>
-          <td style="padding: 14px 16px; font-size: 13px;">
-            <div>${q.phone}</div>
-            <div style="font-size: 12px; color: #9CA3AF;">${q.email}</div>
-          </td>
-          <td style="padding: 14px 16px; font-size: 13px; max-width: 300px;">
-            <div style="white-space: pre-wrap; word-break: break-word;">${q.message}</div>
-          </td>
-          <td style="padding: 14px 16px;">
-            <button style="background:#FF3B30;color:white;padding:6px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:12px;font-family:'Paperlogy',sans-serif;" onclick="deleteInquiry(${q.id})">삭제</button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    async function deleteInquiry(id) {
-      if (!confirm('이 문의를 삭제하시겠습니까?')) return;
-      try {
-        if (db) {
-          const { error } = await db.from('inquiries').delete().eq('id', id);
-          if (error) throw error;
-        }
-        inquiries = inquiries.filter(q => q.id !== id);
-        renderInquiriesTable();
-      } catch (error) {
-        inquiries = inquiries.filter(q => q.id !== id);
-        renderInquiriesTable();
-        console.warn('문의 삭제 실패:', error);
-      }
-    }
-  </script>
 </body>
 </html>
